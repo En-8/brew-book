@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity(name = "User")
 @Table(name = "user")
 public class User {
-    @Column(name = "username")
+    @Column(name = "user_name")
     String username;
     @Column(name = "password")
     String password;
@@ -20,6 +20,12 @@ public class User {
 
     public User() {
 
+    }
+
+    public User (String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
     }
 
     public String getUsername() {
