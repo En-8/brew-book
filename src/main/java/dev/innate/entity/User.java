@@ -3,6 +3,7 @@ package dev.innate.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity(name = "User")
 @Table(name = "user")
@@ -58,5 +59,21 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id &&
+                username.equals(user.username) &&
+                password.equals(user.password) &&
+                email.equals(user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, password, email, id);
     }
 }

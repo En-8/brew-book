@@ -55,9 +55,7 @@ class UserDaoTest {
     void createUser() {
         User newUser = new User("testing", "testing", "testing@test.com");
         int id = dao.createUser(newUser);
-        newUser = dao.getUserById(id);
-        assertEquals("testing", newUser.getUsername());
-        assertEquals("testing", newUser.getPassword());
-        assertEquals("testing@test.com", newUser.getEmail());
+        User newUserRetrieved = dao.getUserById(id);
+        assertEquals(newUser, newUserRetrieved);
     }
 }
