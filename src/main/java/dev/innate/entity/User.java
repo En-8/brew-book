@@ -3,7 +3,9 @@ package dev.innate.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity(name = "User")
 @Table(name = "user")
@@ -18,6 +20,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name="native", strategy = "native")
     private int id;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<Brew> brews = new HashSet<>();
 
     public User() {
 

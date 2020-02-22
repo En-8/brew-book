@@ -16,6 +16,9 @@ public class Brew {
     @Column(name = "pitch_notes")
     String pitchNotes;
 
+    @ManyToOne
+    User user;
+
     // TODO these are other many-to-one relationships that need to be dealt with.
     @Column(name = "yeast_id")
     int yeastId;
@@ -30,13 +33,14 @@ public class Brew {
     public Brew() {
     }
 
-    public Brew (String brewName, String description, String waterNotes, String pitchNotes, int yeastId, int styleId) {
+    public Brew (String brewName, String description, String waterNotes, String pitchNotes, int yeastId, int styleId, User user) {
         this.brewName = brewName;
         this.description = description;
         this.waterNotes = waterNotes;
         this.pitchNotes = pitchNotes;
         this.yeastId = yeastId;
         this.styleId = styleId;
+        this.user = user;
     }
 
     public String getBrewName() {
