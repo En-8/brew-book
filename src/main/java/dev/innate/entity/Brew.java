@@ -8,22 +8,22 @@ import java.util.Objects;
 @Entity(name = "Brew")
 @Table(name = "brew")
 public class Brew {
-    @Column(name = "brew_name")
-    String brewName;
-    String description;
+    @Column(name = "name")
+    private String brewName;
+    private String description;
     @Column(name = "water_notes")
-    String waterNotes;
+    private String waterNotes;
     @Column(name = "pitch_notes")
-    String pitchNotes;
+    private String pitchNotes;
 
     @ManyToOne
-    User user;
+    private User user;
 
     // TODO these are other many-to-one relationships that need to be dealt with.
     @Column(name = "yeast_id")
-    int yeastId;
+    private int yeastId;
     @Column(name = "style_id")
-    int styleId;
+    private int styleId;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
