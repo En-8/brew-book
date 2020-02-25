@@ -99,6 +99,14 @@ public class Brew {
         this.id = id;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -108,9 +116,9 @@ public class Brew {
                 styleId == brew.styleId &&
                 id == brew.id &&
                 brewName.equals(brew.brewName) &&
-                description.equals(brew.description) &&
-                waterNotes.equals(brew.waterNotes) &&
-                pitchNotes.equals(brew.pitchNotes);
+                Objects.equals(description, brew.description) &&
+                Objects.equals(waterNotes, brew.waterNotes) &&
+                Objects.equals(pitchNotes, brew.pitchNotes);
     }
 
     @Override

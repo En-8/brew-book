@@ -21,27 +21,29 @@ public class BrewDaoTest {
     void setUp() {
         dao = new BrewDao();
         user = new User("test", "test", "tester@test.com");
+        user.setId(1);
         Database database = Database.getInstance();
-        database.runSQL("cleandb.sql");
+        database.runSQL("cleandb_brew.sql");
     }
 
     @Test
     void getAllBrewsSuccess() {
         List<Brew> brews = dao.getAllBrews();
-        assertEquals(2, brews.size());
+        assertEquals(1, brews.size());
     }
 
     @Test
     void getBrewByIdSuccess() {
         Brew brew = dao.getBrewById(1);
-        assertEquals("test", brew.getBrewName());
+        assertEquals("Spotted Cow", brew.getBrewName());
     }
 
-    @Test
-    void getBrewsByUserSuccess() {
-        // TODO
-        assertEquals(0, 1);
-    }
+    // TODO figure out how to implement this in the dao
+//    @Test
+//    void getBrewsByUserSuccess() {
+//        List<Brew> brews = dao.getBrewsByUser(user.getId());
+//        assertEquals(1, brews.size());
+//    }
 
     @Test
     void updateBrewSuccess() {
@@ -63,8 +65,8 @@ public class BrewDaoTest {
     @Test
     void createBrewSuccess() {
         Brew newBrew = new Brew(
-                "Spotted Cow",
-                "Refereshingly simple farmhouse ale",
+                "Chocolate milk stout",
+                "Silky smooth stout with cocoa nibs and lactose",
                 "City of Madison faucet water",
                 "Yeast pitched at 75 degrees",
                 5,

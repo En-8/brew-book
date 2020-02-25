@@ -66,6 +66,24 @@ public class User {
         this.email = email;
     }
 
+    public Set<Brew> getBrews() {
+        return brews;
+    }
+
+    public void setBrews(Set<Brew> brews) {
+        this.brews = brews;
+    }
+
+    public void addBrew(Brew brew) {
+        brews.add(brew);
+        brew.setUser(this);
+    }
+
+    public void removeBrew(Brew brew) {
+        brews.remove(brew);
+        brew.setUser(null);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

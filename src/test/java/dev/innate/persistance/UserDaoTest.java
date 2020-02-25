@@ -1,8 +1,8 @@
 package dev.innate.persistance;
 
+import dev.innate.entity.Brew;
 import dev.innate.entity.User;
 import dev.innate.test.util.Database;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -54,6 +54,18 @@ class UserDaoTest {
     @Test
     void createUser() {
         User newUser = new User("testing", "testing", "testing@test.com");
+        int id = dao.createUser(newUser);
+        User newUserRetrieved = dao.getUserById(id);
+        assertEquals(newUser, newUserRetrieved);
+    }
+
+    @Test
+    void createUserWithBrewSuccess() {
+        User newUser = new User("testing", "testing", "testing@test.com");
+
+        Brew brew = new Brew("TestBrew", "description", "water", "pitch", 1, 1, newUser);
+        newUser.addBrew(brew);
+
         int id = dao.createUser(newUser);
         User newUserRetrieved = dao.getUserById(id);
         assertEquals(newUser, newUserRetrieved);
