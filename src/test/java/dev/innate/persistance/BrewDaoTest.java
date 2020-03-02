@@ -6,20 +6,18 @@ import dev.innate.test.util.Database;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.persistence.NoResultException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BrewDaoTest {
-    BrewDao dao;
+    GenericDao dao;
     User user;
 
 
     @BeforeEach
     void setUp() {
-        dao = new BrewDao();
+        dao = new GenericDao(Brew.class);
         user = new User("test", "test", "tester@test.com");
         user.setId(1);
         Database database = Database.getInstance();
@@ -28,13 +26,13 @@ public class BrewDaoTest {
 
     @Test
     void getAllBrewsSuccess() {
-        List<Brew> brews = dao.getAllBrews();
+        List<Brew> brews = dao.getAll();
         assertEquals(1, brews.size());
     }
 
     @Test
     void getBrewByIdSuccess() {
-        Brew brew = dao.getBrewById(1);
+        Brew brew = (Brew)dao.getById(1);
         assertEquals("Spotted Cow", brew.getBrewName());
     }
 
@@ -48,18 +46,18 @@ public class BrewDaoTest {
     @Test
     void updateBrewSuccess() {
         String newDescription = "This is an updated description";
-        Brew brewToUpdate = dao.getBrewById(1);
+        Brew brewToUpdate = (Brew)dao.getById(1);
         brewToUpdate.setDescription(newDescription);
-        dao.updateBrew(brewToUpdate);
-        Brew retrievedBrew = dao.getBrewById(1);
+        dao.update(brewToUpdate);
+        Brew retrievedBrew = (Brew)dao.getById(1);
         assertEquals(newDescription, retrievedBrew.getDescription());
     }
 
     @Test
     void deleteBrewSuccess() {
-        Brew brew = dao.getBrewById(1);
-        dao.deleteBrew(brew);
-        assertThrows(NoResultException.class, () -> {dao.getBrewById(1);});
+        Brew brew = (Brew)dao.getById(1);
+        dao.delete(brew);
+        assertNull(dao.getById(1));
     }
 
     @Test
@@ -74,8 +72,8 @@ public class BrewDaoTest {
                 user
         );
 
-        int id = dao.createBrew(newBrew);
-        Brew newBrewRetrieved = dao.getBrewById(id);
+        int id = dao.create(newBrew);
+        Brew newBrewRetrieved = (Brew)dao.getById(id);
         assertEquals(newBrew, newBrewRetrieved);
     }
 }

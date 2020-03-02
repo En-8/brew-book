@@ -12,50 +12,50 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserDaoTest {
-    UserDao dao;
+    GenericDao dao;
 
 
     @BeforeEach
     void setUp() {
-        dao = new UserDao();
+        dao = new GenericDao(User.class);
         Database database = Database.getInstance();
         database.runSQL("cleandb.sql");
     }
 
     @Test
     void getAllUsersSuccess() {
-        List<User> users = dao.getAllUsers();
+        List<User> users = dao.getAll();
         assertEquals(2, users.size());
     }
 
     @Test
     void getUserById() {
-        User user = dao.getUserById(1);
+        User user = (User)dao.getById(1);
         assertEquals("test", user.getUsername());
     }
 
     @Test
     void updateUser() {
         String newUsername = "new";
-        User userToUpdate = dao.getUserById(1);
+        User userToUpdate = (User)dao.getById(1);
         userToUpdate.setUsername(newUsername);
-        dao.updateUser(userToUpdate);
-        User retrievedUser = dao.getUserById(1);
+        dao.update(userToUpdate);
+        User retrievedUser = (User)dao.getById(1);
         assertEquals(newUsername, retrievedUser.getUsername());
     }
 
     @Test
     void deleteUser() {
-        User user = dao.getUserById(1);
-        dao.deleteUser(user);
-        assertThrows(NoResultException.class, () -> {dao.getUserById(1);});
+        User user = (User)dao.getById(1);
+        dao.delete(user);
+        assertNull(dao.getById(1));
     }
 
     @Test
     void createUser() {
         User newUser = new User("testing", "testing", "testing@test.com");
-        int id = dao.createUser(newUser);
-        User newUserRetrieved = dao.getUserById(id);
+        int id = dao.create(newUser);
+        User newUserRetrieved = (User)dao.getById(id);
         assertEquals(newUser, newUserRetrieved);
     }
 
@@ -66,8 +66,8 @@ class UserDaoTest {
         Brew brew = new Brew("TestBrew", "description", "water", "pitch", 1, 1, newUser);
         newUser.addBrew(brew);
 
-        int id = dao.createUser(newUser);
-        User newUserRetrieved = dao.getUserById(id);
+        int id = dao.create(newUser);
+        User newUserRetrieved = (User)dao.getById(id);
         assertEquals(newUser, newUserRetrieved);
     }
 }
