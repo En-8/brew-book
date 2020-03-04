@@ -18,8 +18,8 @@
 
 # Week 5
 - [x] Create header/footer templating JSPs
-- [ ] Create register jsp
-- [ ] Create sign-in jsp
+- [x] Create register jsp
+- [x] Create sign-in jsp
 
 # Week 6
 - [x] Set up database on AWS
@@ -38,6 +38,7 @@
 - [ ] Review and create plan items from Checkpoint 2 and peer review 1 feedback
 - [ ] Add additional unit tests for brew and user dao in response to instructor feedback 
 - [ ] Decide which API to consume
+- [ ] Add bootstrap styling to jsp's
 
 # Week 8
 - [ ] Integration with chosen API
