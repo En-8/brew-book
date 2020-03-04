@@ -1,9 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="./templates/head.jsp" />
+<c:import url="./templates/navbar.jsp" />
 
-<header>
-    <h1>Browse all brews...</h1>
-</header>
+<h1>Browse all brews...</h1>
 <table>
     <tr><th>Brew Name</th><th>Description</th><th>Brewer (User)</th></tr>
     <c:forEach items="${brews}" var="brew">
@@ -20,3 +19,5 @@
         border: 1px solid black;
     }
 </style>
+
+<c:import url="./templates/footer.jsp" />
