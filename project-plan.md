@@ -2,30 +2,31 @@
 
 # Week 3
 
-- [ ] Initialize project repo and push it to GitHub
-- [ ] Create time log, reflections, and project plan
-- [ ] Document problem statement
-- [ ] Set up Maven with dependencies
-- [ ] Create screen designs
+- [x] Initialize project repo and push it to GitHub
+- [x] Create time log, reflections, and project plan
+- [x] Document problem statement
+- [x] Set up Maven with dependencies
+- [x] Create screen designs
 
 # Week 4
-- [ ] Complete database design for users and recipes
-- [ ] Set up test data
-- [ ] set up hibernate
-- [ ] Complete user dao
-- [ ] Complete recipe dao
+- [x] Complete database design for users and recipes
+- [x] Set up test data
+- [x] set up hibernate
+- [x] Complete user dao
+- [x] Complete recipe dao
 
 
 # Week 5
-- [ ] Create header/footer templating JSPs
+- [x] Create header/footer templating JSPs
 - [ ] Create register jsp
 - [ ] Create sign-in jsp
 
 # Week 6
-- [ ] Set up database on AWS
-- [ ] Implement GenericDao
-- [ ] Deploy project to AWS, get it to show some data
-- [ ] Create remaining database tables
+- [x] Set up database on AWS
+- [x] Implement GenericDao
+- [x] Deploy project to AWS, get it to show some data
+- [x] Create remaining database tables
+- [ ] Create corresponding database tables on aws
 
 # Week 7
 - [ ] Set up authentication locally
