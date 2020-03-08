@@ -29,8 +29,8 @@
 - [ ] Create corresponding database tables on aws
 
 # Week 7
-- [ ] Set up authentication locally
-- [ ] Create login jsp
+- [x] Set up authentication locally
+- [x] Create login jsp
 - [ ] Configure auth on AWS
 - [ ] Implement fermentable entity
 - [ ] Implement dao tests for fermentable

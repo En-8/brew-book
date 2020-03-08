@@ -3,11 +3,11 @@
 <c:import url="./templates/navbar.jsp" />
 
 <h1>Log In</h1>
-<form action="" method="GET">
+<form action="j_security_check" method="POST">
     <label for="username">Username: </label>
-    <input type="text" name="username" id="username">
+    <input type="text" name="j_username" id="username">
     <label for="password">Password: </label>
-    <input type="password" name="password" id="password">
+    <input type="password" name="j_password" id="password">
     <input type="submit" value="Log In">
 </form>
 
