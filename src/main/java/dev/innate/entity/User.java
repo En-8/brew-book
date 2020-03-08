@@ -24,6 +24,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Brew> brews = new HashSet<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<Role> roles = new HashSet<>();
+
     public User() {
 
     }
@@ -82,6 +85,16 @@ public class User {
     public void removeBrew(Brew brew) {
         brews.remove(brew);
         brew.setUser(null);
+    }
+
+    public void addRole(Role role) {
+        roles.add(role);
+        role.setUser(this);
+    }
+
+    public void removeRole(Role role) {
+        roles.remove(role);
+        role.setUser(null);
     }
 
     @Override
