@@ -18,12 +18,10 @@ public class Brew {
 
     @ManyToOne
     private User user;
-
-    // TODO these are other many-to-one relationships that need to be dealt with.
-    @Column(name = "yeast_id")
-    private int yeastId;
-    @Column(name = "style_id")
-    private int styleId;
+    @ManyToOne
+    private Yeast yeast;
+    @ManyToOne
+    private Style style;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
@@ -38,8 +36,6 @@ public class Brew {
         this.description = description;
         this.waterNotes = waterNotes;
         this.pitchNotes = pitchNotes;
-        this.yeastId = yeastId;
-        this.styleId = styleId;
         this.user = user;
     }
 
@@ -75,22 +71,6 @@ public class Brew {
         this.pitchNotes = pitchNotes;
     }
 
-    public int getYeastId() {
-        return yeastId;
-    }
-
-    public void setYeastId(int yeastId) {
-        this.yeastId = yeastId;
-    }
-
-    public int getStyleId() {
-        return styleId;
-    }
-
-    public void setStyleId(int styleId) {
-        this.styleId = styleId;
-    }
-
     public int getId() {
         return id;
     }
@@ -107,22 +87,19 @@ public class Brew {
         this.user = user;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Brew brew = (Brew) o;
-        return yeastId == brew.yeastId &&
-                styleId == brew.styleId &&
-                id == brew.id &&
-                brewName.equals(brew.brewName) &&
-                Objects.equals(description, brew.description) &&
-                Objects.equals(waterNotes, brew.waterNotes) &&
-                Objects.equals(pitchNotes, brew.pitchNotes);
+    public Yeast getYeast() {
+        return yeast;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(brewName, description, waterNotes, pitchNotes, yeastId, styleId, id);
+    public void setYeast(Yeast yeast) {
+        this.yeast = yeast;
+    }
+
+    public Style getStyle() {
+        return style;
+    }
+
+    public void setStyle(Style style) {
+        this.style = style;
     }
 }

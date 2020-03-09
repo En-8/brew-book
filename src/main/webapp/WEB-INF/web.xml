@@ -16,7 +16,7 @@
   <!-- Protect the user search page. -->
   <security-constraint>
     <web-resource-collection>
-      <web-resource-name>search</web-resource-name>
+      <web-resource-name>createBrew</web-resource-name>
       <url-pattern>/createBrew.jsp</url-pattern>
     </web-resource-collection>
     <auth-constraint>
