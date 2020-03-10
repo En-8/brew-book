@@ -1,9 +1,14 @@
 package dev.innate.entity;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity(name = "Brew")
 @Table(name = "brew")
@@ -23,6 +28,10 @@ public class Brew {
     @ManyToOne
     private Style style;
 
+    @OneToMany(mappedBy = "pk.brew", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<BrewFermentable> brewFermentables = new HashSet<>();
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name="native", strategy = "native")
@@ -31,11 +40,13 @@ public class Brew {
     public Brew() {
     }
 
-    public Brew (String brewName, String description, String waterNotes, String pitchNotes, int yeastId, int styleId, User user) {
+    public Brew (String brewName, String description, String waterNotes, String pitchNotes, Yeast yeast, Style style, User user) {
         this.brewName = brewName;
         this.description = description;
         this.waterNotes = waterNotes;
         this.pitchNotes = pitchNotes;
+        this.yeast = yeast;
+        this.style = style;
         this.user = user;
     }
 
@@ -101,5 +112,49 @@ public class Brew {
 
     public void setStyle(Style style) {
         this.style = style;
+    }
+
+    public void addBrewFermentable(BrewFermentable brewFermentable) {
+        brewFermentables.add(brewFermentable);
+        brewFermentable.setBrew(this);
+    }
+
+    public void removeBrewFermentable(BrewFermentable brewFermentable) {
+        brewFermentables.remove(brewFermentable);
+        brewFermentable.setBrew(null);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Brew brew = (Brew) o;
+        return id == brew.id &&
+                brewName.equals(brew.brewName) &&
+                Objects.equals(description, brew.description) &&
+                Objects.equals(waterNotes, brew.waterNotes) &&
+                Objects.equals(pitchNotes, brew.pitchNotes) &&
+                user.equals(brew.user) &&
+                Objects.equals(yeast, brew.yeast) &&
+                style.equals(brew.style);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(brewName, description, waterNotes, pitchNotes, user, yeast, style, id);
+    }
+
+    @Override
+    public String toString() {
+        return "Brew{" +
+                "brewName='" + brewName + '\'' +
+                ", description='" + description + '\'' +
+                ", waterNotes='" + waterNotes + '\'' +
+                ", pitchNotes='" + pitchNotes + '\'' +
+                ", user=" + user +
+                ", yeast=" + yeast +
+                ", style=" + style +
+                ", id=" + id +
+                '}';
     }
 }

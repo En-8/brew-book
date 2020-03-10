@@ -1,7 +1,9 @@
 package dev.innate.persistance;
 
 import dev.innate.entity.Brew;
+import dev.innate.entity.Style;
 import dev.innate.entity.User;
+import dev.innate.entity.Yeast;
 import dev.innate.test.util.Database;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,13 +15,18 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BrewDaoTest {
     GenericDao dao;
     User user;
-
+    Yeast yeast;
+    Style style;
 
     @BeforeEach
     void setUp() {
         dao = new GenericDao(Brew.class);
-        user = new User("test", "test", "tester@test.com");
+        user = new User("test", "test", "test@test.com");
         user.setId(1);
+        yeast = new Yeast("Wyeast", "American Wheat");
+        yeast.setId(1);
+        style = new Style("Farmhouse Ale");
+        style.setId(1);
         Database database = Database.getInstance();
         database.runSQL("cleandb_brew.sql");
     }
@@ -67,8 +74,8 @@ public class BrewDaoTest {
                 "Silky smooth stout with cocoa nibs and lactose",
                 "City of Madison faucet water",
                 "Yeast pitched at 75 degrees",
-                5,
-                12,
+                yeast,
+                style,
                 user
         );
 

@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity(name="Style")
@@ -48,5 +49,27 @@ public class Style {
     public void removeBrew(Brew brew) {
         brews.remove(brew);
         brew.setStyle(null);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Style style = (Style) o;
+        return id == style.id &&
+                Objects.equals(styleName, style.styleName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, styleName);
+    }
+
+    @Override
+    public String toString() {
+        return "Style{" +
+                "id=" + id +
+                ", styleName='" + styleName + '\'' +
+                '}';
     }
 }

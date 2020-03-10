@@ -24,7 +24,7 @@ public class Yeast {
 
     }
 
-    public Yeast(String brand, String name, Brew brew) {
+    public Yeast(String brand, String name) {
         this.brand = brand;
         this.name = name;
     }
@@ -61,5 +61,29 @@ public class Yeast {
     public void removeBrew(Brew brew) {
         brews.remove(brew);
         brew.setYeast(null);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Yeast yeast = (Yeast) o;
+        return id == yeast.id &&
+                brand.equals(yeast.brand) &&
+                name.equals(yeast.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, brand, name);
+    }
+
+    @Override
+    public String toString() {
+        return "Yeast{" +
+                "id=" + id +
+                ", brand='" + brand + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
