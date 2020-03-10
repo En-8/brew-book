@@ -52,3 +52,4 @@ crashlytics-build.properties
 fabric.properties
 
 hibernate.cfg.xml
+META-INF/context.xml
