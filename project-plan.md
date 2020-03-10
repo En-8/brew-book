@@ -34,7 +34,7 @@
 - [ ] Configure auth on AWS
 - [ ] Implement fermentable entity
 - [ ] Implement dao tests for fermentable
-- [ ] Create style table
+- [x] Create style table
 - [ ] Review and create plan items from Checkpoint 2 and peer review 1 feedback
 - [ ] Add additional unit tests for brew and user dao in response to instructor feedback 
 - [ ] Decide which API to consume
