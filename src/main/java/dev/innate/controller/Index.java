@@ -11,14 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/browseAll"})
-public class BrowseBrews extends HttpServlet {
+@WebServlet(urlPatterns = {"/"})
+public class Index extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        GenericDao brewDao = new GenericDao(Brew.class);
-        request.setAttribute("brews", brewDao.getAll());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("browseAllBrews.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }
 }
-
