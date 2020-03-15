@@ -32,13 +32,13 @@
 - [x] Set up authentication locally
 - [x] Create login jsp
 - [ ] Configure auth on AWS
-- [ ] Implement fermentable entity
+- [x] Implement fermentable entity
 - [ ] Implement dao tests for fermentable
 - [x] Create style table
-- [ ] Review and create plan items from Checkpoint 2 and peer review 1 feedback
-- [ ] Add additional unit tests for brew and user dao in response to instructor feedback 
+- [x] Review and create plan items from Checkpoint 2 and peer review 1 feedback
+- [x] Add additional unit tests for brew and user dao in response to instructor feedback 
 - [ ] Decide which API to consume
-- [ ] Add bootstrap styling to jsp's
+- [x] Add bootstrap styling to jsp's
 
 # Week 8
 - [ ] Integration with chosen API
