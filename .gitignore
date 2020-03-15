@@ -54,5 +54,4 @@ fabric.properties
 hibernate.cfg.xml
 META-INF/context.xml
 logs/
-.database.properties
 database.properties
