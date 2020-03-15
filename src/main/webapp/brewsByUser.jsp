@@ -11,6 +11,6 @@
 <body>
 <c:import url="./templates/navbar.jsp"/>
 
-<h1>This page is where a user will see their brews.</h1>
+<h1>This page is where a user will the selected user's brews.</h1>
 
 <c:import url="./templates/footer.jsp"/>

@@ -10,5 +10,5 @@
 </head>
 <body>
 <c:import url="./templates/navbar.jsp"/>
-
+<h1>This is the landing page of the site</h1>
 <c:import url="./templates/footer.jsp"/>
