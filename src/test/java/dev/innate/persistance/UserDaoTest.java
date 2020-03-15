@@ -8,13 +8,12 @@ import dev.innate.test.util.Database;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.persistence.NoResultException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserDaoTest {
-    GenericDao dao;
+    GenericDao userDao;
     Yeast yeast;
     Style style;
 
@@ -25,45 +24,53 @@ class UserDaoTest {
         style = new Style("Farmhouse Ale");
         style.setId(1);
 
-        dao = new GenericDao(User.class);
+        userDao = new GenericDao(User.class);
         Database database = Database.getInstance();
         database.runSQL("cleandb.sql");
     }
 
     @Test
     void getAllUsersSuccess() {
-        List<User> users = dao.getAll();
+        List<User> users = userDao.getAll();
         assertEquals(2, users.size());
     }
 
     @Test
     void getUserById() {
-        User user = (User)dao.getById(1);
+        User user = (User) userDao.getById(1);
         assertEquals("test", user.getUsername());
     }
 
     @Test
     void updateUser() {
         String newUsername = "new";
-        User userToUpdate = (User)dao.getById(1);
+        User userToUpdate = (User) userDao.getById(1);
         userToUpdate.setUsername(newUsername);
-        dao.update(userToUpdate);
-        User retrievedUser = (User)dao.getById(1);
+        userDao.update(userToUpdate);
+        User retrievedUser = (User) userDao.getById(1);
         assertEquals(newUsername, retrievedUser.getUsername());
     }
 
     @Test
     void deleteUser() {
-        User user = (User)dao.getById(1);
-        dao.delete(user);
-        assertNull(dao.getById(1));
+        User user = (User) userDao.getById(1);
+        userDao.delete(user);
+        assertNull(userDao.getById(1));
+    }
+
+    @Test
+    void onUserDeleteBrewsDelete() {
+        GenericDao brewDao = new GenericDao(Brew.class);
+        User user = (User) userDao.getById(1);
+        userDao.delete(user);
+        assertEquals(0, brewDao.findByPropertyEqual("user", user).size());
     }
 
     @Test
     void createUser() {
         User newUser = new User("testing", "testing", "testing@test.com");
-        int id = dao.create(newUser);
-        User newUserRetrieved = (User)dao.getById(id);
+        int id = userDao.create(newUser);
+        User newUserRetrieved = (User) userDao.getById(id);
         assertEquals(newUser, newUserRetrieved);
     }
 
@@ -74,8 +81,8 @@ class UserDaoTest {
         Brew brew = new Brew("TestBrew", "description", "water", "pitch", yeast, style, newUser);
         newUser.addBrew(brew);
 
-        int id = dao.create(newUser);
-        User newUserRetrieved = (User)dao.getById(id);
+        int id = userDao.create(newUser);
+        User newUserRetrieved = (User) userDao.getById(id);
         assertEquals(newUser, newUserRetrieved);
     }
 }

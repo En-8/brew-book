@@ -37,6 +37,16 @@ public class GenericDao<T> {
         return entity;
     }
 
+    public List<T> findByPropertyEqual(String propertyName, Object value) {
+        Session session = getSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<T> query = criteriaBuilder.createQuery(type);
+        Root<T> root = query.from(type);
+        query.select(root).where(criteriaBuilder.equal(root.get(propertyName), value));
+
+        return session.createQuery(query).getResultList();
+    }
+
     public void update(T entity) {
         Session session = getSession();
         Transaction transaction = session.beginTransaction();
