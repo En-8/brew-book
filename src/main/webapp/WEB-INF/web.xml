@@ -13,14 +13,74 @@
     </form-login-config>
   </login-config>
 
-  <!-- Protect the user search page. -->
+  <!-- Protect the create brew page. -->
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>createBrew</web-resource-name>
       <url-pattern>/createBrew.jsp</url-pattern>
     </web-resource-collection>
     <auth-constraint>
-      <role-name>registeredUser</role-name>
+      <role-name>registered_user</role-name>
+    </auth-constraint>
+  </security-constraint>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>createBrew</web-resource-name>
+      <url-pattern>/createBrew</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>registered_user</role-name>
+    </auth-constraint>
+  </security-constraint>
+
+  <!-- Protect the brews by user page. -->
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>brewsByUser</web-resource-name>
+      <url-pattern>/brewsByUser.jsp</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>registered_user</role-name>
+    </auth-constraint>
+  </security-constraint>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>brewsByUser</web-resource-name>
+      <url-pattern>/brewsByUser</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>registered_user</role-name>
+    </auth-constraint>
+  </security-constraint>
+
+  <!-- Protect the your brews page. -->
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>yourBrews</web-resource-name>
+      <url-pattern>/yourBrews.jsp</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>registered_user</role-name>
+    </auth-constraint>
+  </security-constraint>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>yourBrews</web-resource-name>
+      <url-pattern>/yourBrews</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>registered_user</role-name>
+    </auth-constraint>
+  </security-constraint>
+
+  <!-- Protect the login page. -->
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>login</web-resource-name>
+      <url-pattern>/login</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>registered_user</role-name>
     </auth-constraint>
   </security-constraint>
 
@@ -40,7 +100,7 @@
   </security-role>
 
   <security-role>
-    <role-name>registeredUser</role-name>
+    <role-name>registered_user</role-name>
   </security-role>
 
 </web-app>
