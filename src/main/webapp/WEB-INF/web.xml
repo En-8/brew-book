@@ -73,6 +73,26 @@
     </auth-constraint>
   </security-constraint>
 
+  <!-- Protect the account management page. -->
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>userAccountManagement</web-resource-name>
+      <url-pattern>/accountManagement.jsp</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>registered_user</role-name>
+    </auth-constraint>
+  </security-constraint>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>userAccountManagement</web-resource-name>
+      <url-pattern>/manageAccount</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>registered_user</role-name>
+    </auth-constraint>
+  </security-constraint>
+
   <!-- Protect the login page. -->
   <security-constraint>
     <web-resource-collection>
