@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="index">BrewBook</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,9 +20,25 @@
                     <a class="dropdown-item" href="createBrew">Create a new brew</a>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="login">Log In</a>
-            </li>
+
+            <c:choose>
+                <c:when test="${userId != null}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="manageAccount">My Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout">Log Out</a>
+                    </li>
+                </c:when>
+                <c:otherwise>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login">Log In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="createUser">Sign up</a>
+                    </li>
+                </c:otherwise>
+            </c:choose>
         </ul>
     </div>
 </nav>
