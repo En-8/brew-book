@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/", "/index"})
+@WebServlet(urlPatterns = {"/index"})
 public class Index extends HttpServlet {
     private Logger logger = LogManager.getLogger(this.getClass());
 

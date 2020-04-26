@@ -18,7 +18,7 @@ public class CreateUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("userId") != null) {
-            // send the user to the account management page
+            // TODO send the user to the account management page
             // Getting here will only be possible via direct navigation.
         }
 

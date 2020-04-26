@@ -15,14 +15,14 @@ public class Style {
     @GenericGenerator(name="native", strategy = "native")
     private int id;
     @Column(name="style_name")
-    private String styleName;
+    private String name;
     @OneToMany(mappedBy = "style", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     Set<Brew> brews = new HashSet<>();
 
     public Style() {}
 
-    public Style(String styleName) {
-        this.styleName = styleName;
+    public Style(String name) {
+        this.name = name;
     }
 
     public int getId() {
@@ -33,12 +33,12 @@ public class Style {
         this.id = id;
     }
 
-    public String getStyleName() {
-        return styleName;
+    public String getName() {
+        return name;
     }
 
-    public void setStyleName(String styleName) {
-        this.styleName = styleName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void addBrew(Brew brew) {
@@ -57,19 +57,19 @@ public class Style {
         if (o == null || getClass() != o.getClass()) return false;
         Style style = (Style) o;
         return id == style.id &&
-                Objects.equals(styleName, style.styleName);
+                Objects.equals(name, style.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, styleName);
+        return Objects.hash(id, name);
     }
 
     @Override
     public String toString() {
         return "Style{" +
                 "id=" + id +
-                ", styleName='" + styleName + '\'' +
+                ", styleName='" + name + '\'' +
                 '}';
     }
 }

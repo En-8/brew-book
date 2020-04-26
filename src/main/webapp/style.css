@@ -1,0 +1,10 @@
+form {
+    width: 33%;
+    min-width: 500px;
+    margin: 0 auto 0 auto;
+}
+
+.multi-select {
+    border: 1px solid black;
+    padding: 1em;
+}
