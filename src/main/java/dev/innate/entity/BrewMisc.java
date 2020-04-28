@@ -3,12 +3,12 @@ package dev.innate.entity;
 import javax.persistence.*;
 
 @Entity(name="BrewMisc")
-@Table(name = "brew_other_ingredient")
+@Table(name = "brew_misc")
 @AssociationOverrides({
         @AssociationOverride(name="pk.brew",
                 joinColumns = @JoinColumn(name="brew_id")),
-        @AssociationOverride(name="pk.other_ingredient",
-                joinColumns = @JoinColumn(name="other_ingredient_id"))
+        @AssociationOverride(name="pk.misc",
+                joinColumns = @JoinColumn(name="misc_id"))
 })
 public class BrewMisc {
     @EmbeddedId
@@ -53,12 +53,12 @@ public class BrewMisc {
     }
 
     @Transient
-    public Miscellaneous getMisc() {
-        return getPk().getMiscellaneous();
+    public Misc getMisc() {
+        return getPk().getMisc();
     }
 
-    public void setMisc(Miscellaneous misc) {
-        getPk().setMiscellaneous(misc);
+    public void setMisc(Misc misc) {
+        getPk().setMisc(misc);
     }
 
     public double getAmount() {

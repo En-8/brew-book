@@ -27,6 +27,10 @@ public class Brew {
 
     @OneToMany(mappedBy = "pk.brew", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<BrewFermentable> brewFermentables = new HashSet<>();
+    @OneToMany(mappedBy = "pk.brew", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<BrewHop> brewHops = new HashSet<>();
+    @OneToMany(mappedBy = "pk.brew", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<BrewMisc> brewMiscSet = new HashSet<>();
 
 
     @Id
@@ -119,6 +123,26 @@ public class Brew {
     public void removeBrewFermentable(BrewFermentable brewFermentable) {
         brewFermentables.remove(brewFermentable);
         brewFermentable.setBrew(null);
+    }
+
+    public void addBrewHop(BrewHop brewHop) {
+        brewHops.add(brewHop);
+        brewHop.setBrew(this);
+    }
+
+    public void removeBrewHop(BrewHop brewHop) {
+        brewHops.remove(brewHop);
+        brewHop.setBrew(null);
+    }
+
+    public void addBrewMisc(BrewMisc brewMisc) {
+        brewMiscSet.add(brewMisc);
+        brewMisc.setBrew(this);
+    }
+
+    public void removeBrewMisc(BrewMisc brewMisc) {
+        brewMiscSet.remove(brewMisc);
+        brewMisc.setBrew(null);
     }
 
     @Override

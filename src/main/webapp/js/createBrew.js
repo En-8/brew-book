@@ -55,6 +55,7 @@ const addFermentable = () => {
     let removeButton = document.createElement("button");
     removeButton.className = "form-control";
     removeButton.id = `remove-fermentable-${fermentableCount}`;
+    removeButton.innerText = "Remove";
 
     // Add pieces to their groups
     fermentableOptions.forEach(fermentable => {
@@ -81,6 +82,9 @@ const addFermentable = () => {
 
     // Add the row group to the meta form group
     formGroup.insertBefore(rowDiv, formGroup.children[formGroup.children.length - 1]);
+
+    // Increment the counter
+    ++fermentableCount;
 
 }
 

@@ -4,9 +4,9 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
-@Entity(name="Miscellaneous")
-@Table(name="other_ingredient")
-public class Miscellaneous {
+@Entity(name="Misc")
+@Table(name="misc")
+public class Misc {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name="native", strategy = "native")

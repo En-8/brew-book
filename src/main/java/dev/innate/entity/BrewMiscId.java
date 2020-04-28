@@ -9,15 +9,15 @@ public class BrewMiscId implements Serializable {
     @ManyToOne
     private Brew brew;
     @ManyToOne
-    private Miscellaneous miscellaneous;
+    private Misc misc;
 
     public BrewMiscId() {
 
     }
 
-    public BrewMiscId(Brew brew, Miscellaneous miscellaneous) {
+    public BrewMiscId(Brew brew, Misc misc) {
         this.brew = brew;
-        this.miscellaneous = miscellaneous;
+        this.misc = misc;
     }
 
     public Brew getBrew() {
@@ -28,11 +28,11 @@ public class BrewMiscId implements Serializable {
         this.brew = brew;
     }
 
-    public Miscellaneous getMiscellaneous() {
-        return miscellaneous;
+    public Misc getMisc() {
+        return misc;
     }
 
-    public void setMiscellaneous(Miscellaneous miscellaneous) {
-        this.miscellaneous = miscellaneous;
+    public void setMisc(Misc misc) {
+        this.misc = misc;
     }
 }
