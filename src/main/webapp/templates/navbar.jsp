@@ -14,9 +14,7 @@
                     Brews
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="allBrews">Browse All</a>
-                    <a class="dropdown-item" href="#">View your brews</a>
-                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="yourBrews">View your brews</a>
                     <a class="dropdown-item" href="createBrew">Create a new brew</a>
                 </div>
             </li>

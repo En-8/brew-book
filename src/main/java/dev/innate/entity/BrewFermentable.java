@@ -1,56 +1,57 @@
 package dev.innate.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 @Entity(name="BrewFermentable")
 @Table(name = "brew_fermentable")
-@AssociationOverrides({
-        @AssociationOverride(name="pk.brew",
-        joinColumns = @JoinColumn(name="brew_id")),
-        @AssociationOverride(name="pk.fermentable",
-        joinColumns = @JoinColumn(name="fermentable_id"))
-})
 public class BrewFermentable {
-    @EmbeddedId
-    private BrewFermentableId pk = new BrewFermentableId();
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name="native", strategy = "native")
+    private int id;
     @Column(name="amount")
     private float amount;
     @Column(name="unit_of_measure")
     private String unitOfMeasure;
 
+    @ManyToOne
+    private Brew brew;
+
+    @ManyToOne
+    private Fermentable fermentable;
+
     public BrewFermentable() {
     }
 
-    public BrewFermentable(BrewFermentableId pk, float amount, String unitOfMeasure) {
-        this.pk = pk;
+    public BrewFermentable(float amount, String unitOfMeasure) {
         this.amount = amount;
         this.unitOfMeasure = unitOfMeasure;
     }
 
-    public BrewFermentableId getPk() {
-        return pk;
+    public int getId() {
+        return id;
     }
 
-    public void setPk(BrewFermentableId pk) {
-        this.pk = pk;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    @Transient
     public Brew getBrew() {
-        return getPk().getBrew();
+        return brew;
     }
 
     public void setBrew(Brew brew) {
-        getPk().setBrew(brew);
+        this.brew = brew;
     }
 
-    @Transient
     public Fermentable getFermentable() {
-        return getPk().getFermentable();
+        return fermentable;
     }
 
     public void setFermentable(Fermentable fermentable) {
-        getPk().setFermentable(fermentable);
+        this.fermentable = fermentable;
     }
 
     public float getAmount() {

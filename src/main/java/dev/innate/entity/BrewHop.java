@@ -1,18 +1,16 @@
 package dev.innate.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 @Entity(name="BrewHop")
 @Table(name = "brew_hop")
-@AssociationOverrides({
-        @AssociationOverride(name="pk.brew",
-                joinColumns = @JoinColumn(name="brew_id")),
-        @AssociationOverride(name="pk.hop",
-                joinColumns = @JoinColumn(name="hop_id"))
-})
 public class BrewHop {
-    @EmbeddedId
-    private BrewHopId pk = new BrewHopId();
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name="native", strategy = "native")
+    private int id;
     @Column(name="amount")
     private double amount;
     @Column(name="method")
@@ -24,11 +22,15 @@ public class BrewHop {
     @Column(name="amount_unit_of_measure")
     private String amountUnitOfMeasure;
 
+    @ManyToOne
+    private Brew brew;
+    @ManyToOne
+    private Hop hop;
+
     public BrewHop() {
     }
 
-    public BrewHop(BrewHopId pk, double amount, String method, double timeInBrew, String timeUnitOfMeasure, String amountUnitOfMeasure) {
-        this.pk = pk;
+    public BrewHop(double amount, String method, double timeInBrew, String timeUnitOfMeasure, String amountUnitOfMeasure) {
         this.amount = amount;
         this.method = method;
         this.timeInBrew = timeInBrew;
@@ -36,30 +38,28 @@ public class BrewHop {
         this.amountUnitOfMeasure = amountUnitOfMeasure;
     }
 
-    public BrewHopId getPk() {
-        return pk;
+    public int getId() {
+        return id;
     }
 
-    public void setPk(BrewHopId pk) {
-        this.pk = pk;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    @Transient
     public Brew getBrew() {
-        return getPk().getBrew();
+        return brew;
     }
 
     public void setBrew(Brew brew) {
-        getPk().setBrew(brew);
+        this.brew = brew;
     }
 
-    @Transient
     public Hop getHop() {
-        return getPk().getHop();
+        return hop;
     }
 
     public void setHop(Hop hop) {
-        getPk().setHop(hop);
+        this.hop = hop;
     }
 
     public double getAmount() {

@@ -2,6 +2,8 @@ package dev.innate.controller;
 
 import dev.innate.entity.*;
 import dev.innate.persistance.GenericDao;
+import dev.innate.util.BrewBuilder;
+import dev.innate.util.SessionManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
-import java.util.regex.Pattern;
 
 @WebServlet(urlPatterns = {"/createBrew"})
 public class CreateBrew extends HttpServlet {
@@ -21,175 +22,161 @@ public class CreateBrew extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("createBrew.jsp");
-
-        // Get the fermentable options
-        GenericDao fermentDao = new GenericDao(Fermentable.class);
-        List<Fermentable> fermentables = fermentDao.getAll();
-        request.setAttribute("fermentables", fermentables);
-
-        // Get the hops options
-        GenericDao hopDao = new GenericDao(Hop.class);
-        List<Hop> hops = hopDao.getAll();
-        request.setAttribute("hops", hops);
-
-        // Get the style options
-        GenericDao styleDao = new GenericDao(Style.class);
-        List<Style> styles = styleDao.getAll();
-        request.setAttribute("styles", styles);
-
-        // Get the yeast options
-        GenericDao yeastDao = new GenericDao(Yeast.class);
-        List<Yeast> yeasts = yeastDao.getAll();
-        request.setAttribute("yeasts", yeasts);
-
-        // Get the other ingredient options.
-        GenericDao miscDao = new GenericDao(Misc.class);
-        List<Misc> otherIngredients = miscDao.getAll();
-        request.setAttribute("otherIngredients", otherIngredients);
+        SessionManager.addUserToSession(request.getRemoteUser(), request.getSession());
+        getFormSelectOptions(request);
 
         dispatcher.forward(request, response);
     }
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) {
-        List<String> fermentableIndexes = new ArrayList<>();
-        List<String> hopIndexes = new ArrayList<>();
-        List<String> miscIndexes = new ArrayList<>();
-        request.getParameterNames().asIterator().forEachRemaining(entry -> {
-            String index = "-1";
-            if (Character.isDigit(entry.charAt(entry.length()-1))) {
-                index = determineIndex(entry);
-                if (isAFermentable(entry)) {
-                    if (!fermentableIndexes.contains(index)) {
-                        fermentableIndexes.add(index);
-                    }
-                } else if (isAHopEntry(entry)) {
-                    if (!hopIndexes.contains(index)) {
-                        hopIndexes.add(index);
-                    }
-                } else if (isMiscEntry(entry)) {
-                    if (!miscIndexes.contains(index)) {
-                        miscIndexes.add(index);
-                    }
-                }
-            }
-        });
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int brewId = createBrewFromForm(request);
+        response.sendRedirect(String.format("brewDetails?id=%d", brewId));
+    }
 
-        // Now we need to build out the objects that go together to form a brew
-        Brew brew = new Brew();
+    private void getFormSelectOptions(HttpServletRequest request) {
+        getFermentableSelectOptions(request);
+        getHopSelectOptions(request);
+        getStyleSelectOptions(request);
+        getYeastSelectOptions(request);
+        getMiscSelectOptions(request);
+    }
 
-        // Build the list of BrweFermentables
-        GenericDao fermentableDao = new GenericDao(Fermentable.class);
-        for (String index : fermentableIndexes) {
-            Fermentable fermentable = (Fermentable) fermentableDao.getById(Integer.parseInt(request.getParameter(String.format("fermentable-%s", index))));
-            BrewFermentable brewFermentable = new BrewFermentable();
-            BrewFermentableId brewFermentableId = new BrewFermentableId();
-
-            brewFermentableId.setBrew(brew);
-            brewFermentableId.setFermentable(fermentable);
-
-            brewFermentable.setPk(brewFermentableId);
-            brewFermentable.setBrew(brew);
-            brewFermentable.setFermentable(fermentable);
-            brewFermentable.setAmount(Float.parseFloat(request.getParameter(String.format("fermentable-amount-%s", index))));
-            brewFermentable.setUnitOfMeasure(request.getParameter(String.format("fermentable-amount-units-%s", index)));
-
-            brew.addBrewFermentable(brewFermentable);
-        }
-
-        // Build the list of hops
-        GenericDao hopDao = new GenericDao(Hop.class);
-        for (String index : hopIndexes) {
-            Hop hop = (Hop) hopDao.getById(Integer.parseInt(request.getParameter(String.format("hop-%s", index))));
-            BrewHop brewHop = new BrewHop();
-            BrewHopId brewHopId = new BrewHopId();
-
-            brewHopId.setBrew(brew);
-            brewHopId.setHop(hop);
-
-            brewHop.setBrew(brew);
-            brewHop.setHop(hop);
-            brewHop.setPk(brewHopId);
-            brewHop.setAmount(Double.parseDouble(request.getParameter(String.format("hop-amount-%s", index))));
-            brewHop.setAmountUnitOfMeasure(request.getParameter(String.format("hop-amount-units-%s", index)));
-            brewHop.setMethod(request.getParameter(String.format("hop-method-%s", index)));
-            brewHop.setTimeInBrew(Double.parseDouble(request.getParameter(String.format("hop-time-%s", index))));
-            brewHop.setTimeUnitOfMeasure(request.getParameter(String.format("hop-time-units-%s", index)));
-
-            brew.addBrewHop(brewHop);
-        }
-
-        // Build the list of misc ingredients
+    private void getMiscSelectOptions(HttpServletRequest request) {
+        // Get the other ingredient options.
         GenericDao miscDao = new GenericDao(Misc.class);
-        for (String index : miscIndexes) {
-            Misc misc = (Misc) miscDao.getById(Integer.parseInt(request.getParameter(String.format("misc-%s", index))));
-            BrewMisc brewMisc = new BrewMisc();
-            BrewMiscId brewMiscId = new BrewMiscId();
+        List<Misc> otherIngredients = miscDao.getAll();
+        request.setAttribute("otherIngredients", otherIngredients);
+    }
 
-            brewMiscId.setBrew(brew);
-            brewMiscId.setMisc(misc);
+    private void getYeastSelectOptions(HttpServletRequest request) {
+        // Get the yeast options
+        GenericDao yeastDao = new GenericDao(Yeast.class);
+        List<Yeast> yeasts = yeastDao.getAll();
+        request.setAttribute("yeasts", yeasts);
+    }
 
-            brewMisc.setBrew(brew);
-            brewMisc.setMisc(misc);
-            brewMisc.setPk(brewMiscId);
-            brewMisc.setAmount(Double.parseDouble(request.getParameter(String.format("misc-amount-%s", index))));
-            brewMisc.setAmountUnitOfMeasure(request.getParameter(String.format("misc-amount-units-%s", index)));
-            brewMisc.setAdditionParameter(request.getParameter(String.format("misc-addition-%s", index)));
-            brewMisc.setTimeInBrew(Double.parseDouble(request.getParameter(String.format("misc-time-%s", index))));
-            brewMisc.setTimeUnitOfMeasure(request.getParameter(String.format("misc-time-units-%s", index)));
-
-            brew.addBrewMisc(brewMisc);
-        }
-
-        // Grab the rest of the parameters and create the brew.
+    private void getStyleSelectOptions(HttpServletRequest request) {
+        // Get the style options
         GenericDao styleDao = new GenericDao(Style.class);
+        List<Style> styles = styleDao.getAll();
+        request.setAttribute("styles", styles);
+    }
+
+    private void getHopSelectOptions(HttpServletRequest request) {
+        // Get the hops options
+        GenericDao hopDao = new GenericDao(Hop.class);
+        List<Hop> hops = hopDao.getAll();
+        request.setAttribute("hops", hops);
+    }
+
+    private void getFermentableSelectOptions(HttpServletRequest request) {
+        // Get the fermentable options
+        GenericDao fermentDao = new GenericDao(Fermentable.class);
+        List<Fermentable> fermentables = fermentDao.getAll();
+        request.setAttribute("fermentables", fermentables);
+    }
+
+    private int createBrewFromForm(HttpServletRequest request) {
+        // Now we need to build out the objects that go together to form a brew
+        GenericDao styleDao = new GenericDao(Style.class);
+        GenericDao yeastDao = new GenericDao(Yeast.class);
         GenericDao userDao = new GenericDao(User.class);
         GenericDao brewDao = new GenericDao(Brew.class);
 
-        // TODO make sure to add water notes, yeast, and pitch notes.
-        brew.setBrewName(request.getParameter("name"));
-        brew.setDescription(request.getParameter("description"));
-        brew.setStyle((Style) styleDao.getById(Integer.parseInt(request.getParameter("style"))));
-        brew.setUser((User)userDao.findByPropertyEqual("username", request.getRemoteUser()).get(0));
+        // Build a brew
+        BrewBuilder brewBuilder = new BrewBuilder();
+        Brew brew = brewBuilder.withName(request.getParameter("name"))
+                .withDescription(request.getParameter("description"))
+                .withStyle((Style) styleDao.getById(Integer.parseInt(request.getParameter("style"))))
+                .withUser((User)userDao.findByPropertyEqual("username", request.getRemoteUser()).get(0))
+                .withYeast((Yeast) yeastDao.getById(Integer.parseInt(request.getParameter("yeast"))))
+                .withPitchNotes(request.getParameter("yeast-pitch-notes"))
+                .withWaterNotes(request.getParameter("water-notes"))
+                .build();
 
-        brewDao.create(brew);
+        getBrewFermentablesFromForm(request, brew);
+        getBrewHopsFromForm(request, brew);
+        getBrewMiscFromForm(request, brew);
+
+        // Finally, sew it all together into a brew
+        return brewDao.create(brew);
     }
 
-    private String determineIndex(String parameterName) {
-        // Figure out the fermentable index
-            // check characters of key, starting from the end.
-            // keep moving back in the key until we reach a character that's not a number
-            // All the characters we've found so far represent the fermentable index
-        Stack<Character> indexChars = new Stack<>();
+    private void getBrewMiscFromForm(HttpServletRequest request, Brew brew) {
+        // Grab the misc item parallel arrays
+        String[] miscIds = request.getParameterValues("misc");
+        String[] miscAmounts = request.getParameterValues("misc-amount");
+        String[] miscAmountUnits = request.getParameterValues("misc-amount-units");
+        String[] miscTimes = request.getParameterValues("misc-time");
+        String[] miscTimeUnits = request.getParameterValues("misc-time-units");
+        String[] miscAdditionParameters = request.getParameterValues("misc-addition");
 
-        for (int i = parameterName.length() - 1; i >= 0; --i) {
-            char currentChar = parameterName.charAt(i);
-            if (Character.isDigit(currentChar)) {
-                // add it to the stack
-                indexChars.push(currentChar);
-            } else {
-                // We have all of the digits of the index, so break the loop
-                i = -1;
-            }
+
+        // Build the list of misc ingredients
+        GenericDao miscDao = new GenericDao(Misc.class);
+        for (int index = 0; index < miscIds.length; ++index) {
+            Misc misc = (Misc) miscDao.getById(Integer.parseInt(miscIds[index]));
+
+            BrewMisc brewMisc = new BrewMisc();
+            brewMisc.setBrew(brew);
+            brewMisc.setMisc(misc);
+
+            brewMisc.setAmount(Double.parseDouble(miscAmounts[index]));
+            brewMisc.setAmountUnitOfMeasure(miscAmountUnits[index]);
+            brewMisc.setAdditionParameter(miscAdditionParameters[index]);
+            brewMisc.setTimeInBrew(Double.parseDouble(miscTimes[index]));
+            brewMisc.setTimeUnitOfMeasure(miscTimeUnits[index]);
+
+            brew.addBrewMisc(brewMisc);
         }
+    }
 
-        StringBuilder indexAsString = new StringBuilder();
-        while (!indexChars.empty()) {
-            indexAsString.append(indexChars.pop());
+    private void getBrewFermentablesFromForm(HttpServletRequest request, Brew brew) {
+        // Grab the lists of fermentable information (these should be parallel lists)
+        String[] fermentableIds = request.getParameterValues("fermentable");
+        String[] fermentableAmounts = request.getParameterValues("fermentable-amount");
+        String[] fermentableAmountUnits = request.getParameterValues("fermentable-amount-units");
+
+        // Loop through (classic, because we need the index) the parallel arrays, creating a fermentable object for each index
+        GenericDao fermentableDao = new GenericDao(Fermentable.class);
+        for (int index = 0; index < fermentableIds.length; ++index) {
+            Fermentable fermentable = (Fermentable) fermentableDao.getById(Integer.parseInt(fermentableIds[index]));
+
+            BrewFermentable brewFermentable = new BrewFermentable();
+            brewFermentable.setBrew(brew);
+            brewFermentable.setFermentable(fermentable);
+            brewFermentable.setAmount(Float.parseFloat(fermentableAmounts[index]));
+            brewFermentable.setUnitOfMeasure(fermentableAmountUnits[index]);
+
+            brew.addBrewFermentable(brewFermentable);
         }
-
-        return indexAsString.toString();
     }
 
-    private boolean isAFermentable(String parameter) {
-        return Pattern.compile("fermentable", Pattern.CASE_INSENSITIVE).matcher(parameter).find();
-    }
+    private void getBrewHopsFromForm(HttpServletRequest request, Brew brew) {
+        // Grab the set of hop parallel arrays
+        String[] hopIds = request.getParameterValues("hop");
+        String[] hopAmounts = request.getParameterValues("hop-amount");
+        String[] hopAmountUnits = request.getParameterValues("hop-amount-units");
+        String[] hopTimes = request.getParameterValues("hop-time");
+        String[] hopTimeUnits = request.getParameterValues("hop-time-units");
+        String[] hopMethods = request.getParameterValues("hop-method");
 
-    private boolean isAHopEntry(String parameter) {
-        return Pattern.compile("hop", Pattern.CASE_INSENSITIVE).matcher(parameter).find();
-    }
+        // Build the list of hops
+        GenericDao hopDao = new GenericDao(Hop.class);
+        for (int index = 0; index < hopIds.length; ++index) {
+            Hop hop = (Hop) hopDao.getById(Integer.parseInt(hopIds[index]));
 
-    private boolean isMiscEntry(String parameter) {
-        return Pattern.compile("misc", Pattern.CASE_INSENSITIVE).matcher(parameter).find();
+            BrewHop brewHop = new BrewHop();
+            brewHop.setBrew(brew);
+            brewHop.setHop(hop);
+            brewHop.setAmount(Double.parseDouble(hopAmounts[index]));
+            brewHop.setAmountUnitOfMeasure(hopAmountUnits[index]);
+            brewHop.setMethod(hopMethods[index]);
+            brewHop.setTimeInBrew(Double.parseDouble(hopTimes[index]));
+            brewHop.setTimeUnitOfMeasure(hopTimeUnits[index]);
+
+            brew.addBrewHop(brewHop);
+        }
     }
 }

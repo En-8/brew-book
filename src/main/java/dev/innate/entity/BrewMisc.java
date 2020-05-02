@@ -1,5 +1,7 @@
 package dev.innate.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 @Entity(name="BrewMisc")
@@ -11,8 +13,10 @@ import javax.persistence.*;
                 joinColumns = @JoinColumn(name="misc_id"))
 })
 public class BrewMisc {
-    @EmbeddedId
-    private BrewMiscId pk = new BrewMiscId();
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name="native", strategy = "native")
+    private int id;
     @Column(name="amount")
     private double amount;
     @Column(name="amount_unit_of_measure")
@@ -24,10 +28,14 @@ public class BrewMisc {
     @Column(name="time_unit_of_measure")
     private String timeUnitOfMeasure;
 
+    @ManyToOne
+    private Brew brew;
+    @ManyToOne
+    private Misc misc;
+
     public BrewMisc() {}
 
-    public BrewMisc(BrewMiscId pk, double amount, String amountUnitOfMeasure, String additionParameter, double timeInBrew, String timeUnitOfMeasure) {
-        this.pk = pk;
+    public BrewMisc(double amount, String amountUnitOfMeasure, String additionParameter, double timeInBrew, String timeUnitOfMeasure) {
         this.amount = amount;
         this.amountUnitOfMeasure = amountUnitOfMeasure;
         this.additionParameter = additionParameter;
@@ -35,30 +43,28 @@ public class BrewMisc {
         this.timeUnitOfMeasure = timeUnitOfMeasure;
     }
 
-    public BrewMiscId getPk() {
-        return pk;
+    public int getId() {
+        return id;
     }
 
-    public void setPk(BrewMiscId pk) {
-        this.pk = pk;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    @Transient
     public Brew getBrew() {
-        return getPk().getBrew();
+        return brew;
     }
 
     public void setBrew(Brew brew) {
-        getPk().setBrew(brew);
+        this.brew = brew;
     }
 
-    @Transient
     public Misc getMisc() {
-        return getPk().getMisc();
+        return misc;
     }
 
     public void setMisc(Misc misc) {
-        getPk().setMisc(misc);
+        this.misc = misc;
     }
 
     public double getAmount() {

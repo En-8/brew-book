@@ -13,6 +13,28 @@
     </form-login-config>
   </login-config>
 
+  <!-- Protect the brews details page. -->
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>brewDetails</web-resource-name>
+      <url-pattern>/brewDetails.jsp</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>registered_user</role-name>
+      <role-name>admin</role-name>
+    </auth-constraint>
+  </security-constraint>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>brewDetails</web-resource-name>
+      <url-pattern>/brewDetails</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>registered_user</role-name>
+      <role-name>admin</role-name>
+    </auth-constraint>
+  </security-constraint>
+
   <!-- Protect the create brew page. -->
   <security-constraint>
     <web-resource-collection>

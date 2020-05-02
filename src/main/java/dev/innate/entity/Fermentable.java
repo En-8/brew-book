@@ -16,9 +16,6 @@ public class Fermentable {
     private int id;
     private String name;
 
-    @OneToMany(mappedBy = "pk.fermentable", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<BrewFermentable> brewFermentables = new HashSet<>();
-
     public Fermentable() {
     }
 
@@ -40,16 +37,6 @@ public class Fermentable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void addBrewFermentable(BrewFermentable brewFermentable) {
-        brewFermentables.add(brewFermentable);
-        brewFermentable.setFermentable(this);
-    }
-
-    public void removeBrewFermentable(BrewFermentable brewFermentable) {
-        brewFermentables.remove(brewFermentable);
-        brewFermentable.setFermentable(null);
     }
 
     @Override

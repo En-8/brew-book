@@ -44,6 +44,12 @@ public class BrewDaoTest {
     }
 
     @Test
+    void getBrewByIdNotFound() {
+        Brew brew = (Brew) brewDao.getById(99999);
+        assertNull(brew);
+    }
+
+    @Test
     void getBrewsByUserSuccess() {
         List<Brew> brews = brewDao.findByPropertyEqual("user", user);
         assertEquals(1, brews.size());

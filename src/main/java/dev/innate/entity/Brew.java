@@ -3,9 +3,7 @@ package dev.innate.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity(name = "Brew")
 @Table(name = "brew")
@@ -25,12 +23,12 @@ public class Brew {
     @ManyToOne
     private Style style;
 
-    @OneToMany(mappedBy = "pk.brew", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<BrewFermentable> brewFermentables = new HashSet<>();
-    @OneToMany(mappedBy = "pk.brew", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<BrewHop> brewHops = new HashSet<>();
-    @OneToMany(mappedBy = "pk.brew", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<BrewMisc> brewMiscSet = new HashSet<>();
+    @OneToMany(mappedBy = "brew", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<BrewFermentable> brewFermentables;
+    @OneToMany(mappedBy = "brew", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<BrewHop> brewHops;
+    @OneToMany(mappedBy = "brew", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<BrewMisc> brewMiscSet;
 
 
     @Id
@@ -39,9 +37,13 @@ public class Brew {
     private int id;
 
     public Brew() {
+        brewFermentables = new HashSet<>();
+        brewHops = new HashSet<>();
+        brewMiscSet = new HashSet<>();
     }
 
     public Brew (String brewName, String description, String waterNotes, String pitchNotes, Yeast yeast, Style style, User user) {
+        this();
         this.brewName = brewName;
         this.description = description;
         this.waterNotes = waterNotes;
@@ -143,6 +145,18 @@ public class Brew {
     public void removeBrewMisc(BrewMisc brewMisc) {
         brewMiscSet.remove(brewMisc);
         brewMisc.setBrew(null);
+    }
+
+    public Set<BrewFermentable> getBrewFermentables() {
+        return brewFermentables;
+    }
+
+    public Set<BrewHop> getBrewHops() {
+        return brewHops;
+    }
+
+    public Set<BrewMisc> getBrewMiscSet() {
+        return brewMiscSet;
     }
 
     @Override
