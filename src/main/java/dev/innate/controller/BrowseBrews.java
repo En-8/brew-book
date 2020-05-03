@@ -32,7 +32,7 @@ public class BrowseBrews extends HttpServlet {
         List<Brew> brews = brewDao.findByPropertyEqual("user",(User) userDao.getById((Integer)session.getAttribute("userId")));
 
         request.setAttribute("brews", brews);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("browseAllBrews.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("brewsByUser.jsp");
         dispatcher.forward(request, response);
     }
 }

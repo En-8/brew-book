@@ -1,0 +1,79 @@
+/* Form Styles */
+form {
+    width: 40%;
+    min-width: 900px;
+    margin: 0 auto 0 auto;
+}
+
+.multi-select {
+    margin-bottom: 2em;
+    padding: 1em;
+    border-radius: 7px;
+    box-shadow: 1px 1px 10px gray;
+}
+
+.button-form-row {
+    display: flex;
+    justify-content: center;
+}
+
+.main-label {
+    font-weight: bolder;
+    font-size: 18pt;
+    margin-left: 0.5em;
+}
+
+/* Your Brews Styles */
+.multi-brew-container {
+    width: 66%;
+    min-width: 500px;
+    max-width: 850px;
+    margin: 0 auto 0 auto;
+}
+
+.multi-brew-container h1 {
+    font-weight: 600;
+    margin: 2em 0 2em 0;
+}
+
+.brew-card {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    box-shadow: 1px 1px 10px gray;
+    border-radius: 7px;
+    padding: 1em;
+    margin-bottom: 2em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.brew-card-name {
+    font-weight: 500;
+    font-size: 20pt;
+    margin-bottom: 0.1em;
+    margin-top: 0;
+}
+
+.brew-card-style {
+    font-weight: 400;
+    font-size: 16pt;
+    font-style: italic;
+    color: gray;
+    margin-bottom: 0.5em;
+}
+
+.brew-card-description {
+    font-size: 14pt;
+}
+
+.brew-card-button-container {
+    width: 75%;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto 0 auto;
+}
+
+.brew-card-button {
+    width: 33%;
+}
