@@ -74,6 +74,11 @@ form {
     margin: 0 auto 0 auto;
 }
 
-.brew-card-button {
+.brew-card-button-container a {
+    display: block;
     width: 33%;
+}
+
+.brew-card-button {
+    width: 100%;
 }

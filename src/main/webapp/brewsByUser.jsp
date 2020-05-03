@@ -7,6 +7,7 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="./templates/head.jsp"/>
+<script src="${pageContext.request.contextPath}/js/yourBrews.js"></script>
 </head>
 <body>
 <c:import url="./templates/navbar.jsp"/>
@@ -20,8 +21,8 @@
                 ${brew.description}
             </p>
             <div class="brew-card-button-container">
-                <a href="brewDetails?id=${brew.id}"><button class="brew-card-button btn btn-secondary" id="brew-details-button">View Brew</button></a>
-                <a href=""><button class="brew-card-button btn btn-danger" id="delete-brew-button">Delete Brew</button></a>
+                <a href="brewDetails?id=${brew.id}"><button class="brew-card-button btn btn-secondary brew-details-button">View Brew</button></a>
+                <a href="#"><button class="brew-card-button btn btn-danger delete-brew-button" value="${brew.id}">Delete Brew</button></a>
             </div>
         </div>
     </c:forEach>
