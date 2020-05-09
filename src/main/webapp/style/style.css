@@ -1,3 +1,181 @@
+body {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+}
+
+.btn-primary {
+    background-color: #faa72d;
+    border-color: #faa72d;!important;
+    font-size: 16pt;
+    font-weight: 200;
+}
+
+.btn-primary:hover {
+    background-color: #d08400;!important;
+    border-color: #d08400;!important;
+}
+
+.navbar-dark {
+    color: white;
+    background-color: #faa72d;
+}
+
+.navbar-brand {
+    font-size: 24pt;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: white;!important;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: white;!important;
+}
+
+.nav-link {
+    border-bottom: 2px solid #faa72d;
+    transition: border-bottom-color ease-out 5ms;
+}
+
+.nav-link:hover {
+    border-bottom: 2px solid white;
+}
+
+footer {
+    color: white;
+    height: 100px;
+    background-color: #faa72d;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+footer > p {
+    margin-left: 2rem;
+}
+
+/* Home page styles */
+.banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 350px;
+}
+
+.banner p, .large-banner p {
+    font-size: 16pt;
+    font-weight: 200;
+}
+
+.banner h1, .large-banner h1 {
+    font-weight: 500;
+}
+
+.large-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 650px;
+}
+
+.banner-colored {
+    background-color: #faa72d;
+    color: white;
+}
+
+.banner-content {
+    width: 80%;
+    margin: 0 auto 0 auto;
+}
+
+#landing-banner {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#landing-banner-content {
+    margin-left: 5rem;
+}
+
+#landing-banner > img {
+    width: 300px;
+}
+
+#about-banner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#contact-banner {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#contact-banner-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 40%;
+}
+
+#contact-banner > form {
+    width: 50%;
+}
+
+
+
+/* Brew detail style */
+.brew-container {
+    margin: 1rem auto 1rem auto;
+    padding: 1rem;
+    border-radius: 7px;
+    box-shadow: 1px 1px 7px gray;
+    width: 33%;
+    min-width: 500px;
+}
+
+.ingredient-container > h2 {
+    font-size: 18pt;
+}
+
+.field-name {
+    font-size: 14pt;
+}
+
+.brew-container > h1 {
+    font-size: 24pt;
+}
+
+.ingredient-nothing-here {
+    font-size: 12pt;
+    font-style: italic;
+}
+
+#brew-details-header {
+    margin: 1em auto 0 auto;
+    width: 33%;
+    min-width: 500px;
+}
+
+.ingredient-container {
+    margin-top: 2rem;
+}
+
+.notes-title {
+    text-decoration: underline;
+    font-style: italic;
+}
+
 /* Create brew Styles */
 .error-msg {
     margin: 1em 0 1em 0;
