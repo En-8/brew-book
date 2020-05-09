@@ -114,21 +114,24 @@ public class CreateBrew extends HttpServlet {
 
 
         // Build the list of misc ingredients
-        GenericDao miscDao = new GenericDao(Misc.class);
-        for (int index = 0; index < miscIds.length; ++index) {
-            Misc misc = (Misc) miscDao.getById(Integer.parseInt(miscIds[index]));
+        if (miscIds != null && miscAmounts != null && miscAmountUnits != null && miscTimes != null
+                    && miscTimes != null && miscAdditionParameters != null){
+            GenericDao miscDao = new GenericDao(Misc.class);
+            for (int index = 0; index < miscIds.length; ++index) {
+                Misc misc = (Misc) miscDao.getById(Integer.parseInt(miscIds[index]));
 
-            BrewMisc brewMisc = new BrewMisc();
-            brewMisc.setBrew(brew);
-            brewMisc.setMisc(misc);
+                BrewMisc brewMisc = new BrewMisc();
+                brewMisc.setBrew(brew);
+                brewMisc.setMisc(misc);
 
-            brewMisc.setAmount(Double.parseDouble(miscAmounts[index]));
-            brewMisc.setAmountUnitOfMeasure(miscAmountUnits[index]);
-            brewMisc.setAdditionParameter(miscAdditionParameters[index]);
-            brewMisc.setTimeInBrew(Double.parseDouble(miscTimes[index]));
-            brewMisc.setTimeUnitOfMeasure(miscTimeUnits[index]);
+                brewMisc.setAmount(Double.parseDouble(miscAmounts[index]));
+                brewMisc.setAmountUnitOfMeasure(miscAmountUnits[index]);
+                brewMisc.setAdditionParameter(miscAdditionParameters[index]);
+                brewMisc.setTimeInBrew(Double.parseDouble(miscTimes[index]));
+                brewMisc.setTimeUnitOfMeasure(miscTimeUnits[index]);
 
-            brew.addBrewMisc(brewMisc);
+                brew.addBrewMisc(brewMisc);
+            }
         }
     }
 
@@ -139,17 +142,19 @@ public class CreateBrew extends HttpServlet {
         String[] fermentableAmountUnits = request.getParameterValues("fermentable-amount-units");
 
         // Loop through (classic, because we need the index) the parallel arrays, creating a fermentable object for each index
-        GenericDao fermentableDao = new GenericDao(Fermentable.class);
-        for (int index = 0; index < fermentableIds.length; ++index) {
-            Fermentable fermentable = (Fermentable) fermentableDao.getById(Integer.parseInt(fermentableIds[index]));
+        if (fermentableIds != null && fermentableAmounts != null && fermentableAmountUnits != null){
+            GenericDao fermentableDao = new GenericDao(Fermentable.class);
+            for (int index = 0; index < fermentableIds.length; ++index) {
+                Fermentable fermentable = (Fermentable) fermentableDao.getById(Integer.parseInt(fermentableIds[index]));
 
-            BrewFermentable brewFermentable = new BrewFermentable();
-            brewFermentable.setBrew(brew);
-            brewFermentable.setFermentable(fermentable);
-            brewFermentable.setAmount(Float.parseFloat(fermentableAmounts[index]));
-            brewFermentable.setUnitOfMeasure(fermentableAmountUnits[index]);
+                BrewFermentable brewFermentable = new BrewFermentable();
+                brewFermentable.setBrew(brew);
+                brewFermentable.setFermentable(fermentable);
+                brewFermentable.setAmount(Float.parseFloat(fermentableAmounts[index]));
+                brewFermentable.setUnitOfMeasure(fermentableAmountUnits[index]);
 
-            brew.addBrewFermentable(brewFermentable);
+                brew.addBrewFermentable(brewFermentable);
+            }
         }
     }
 
@@ -163,20 +168,27 @@ public class CreateBrew extends HttpServlet {
         String[] hopMethods = request.getParameterValues("hop-method");
 
         // Build the list of hops
-        GenericDao hopDao = new GenericDao(Hop.class);
-        for (int index = 0; index < hopIds.length; ++index) {
-            Hop hop = (Hop) hopDao.getById(Integer.parseInt(hopIds[index]));
+         if (hopIds != null
+                && hopAmounts != null
+                && hopAmountUnits != null
+                && hopTimes != null
+                && hopTimeUnits != null
+                && hopMethods != null) {
+            GenericDao hopDao = new GenericDao(Hop.class);
+            for (int index = 0; index < hopIds.length; ++index) {
+                Hop hop = (Hop) hopDao.getById(Integer.parseInt(hopIds[index]));
 
-            BrewHop brewHop = new BrewHop();
-            brewHop.setBrew(brew);
-            brewHop.setHop(hop);
-            brewHop.setAmount(Double.parseDouble(hopAmounts[index]));
-            brewHop.setAmountUnitOfMeasure(hopAmountUnits[index]);
-            brewHop.setMethod(hopMethods[index]);
-            brewHop.setTimeInBrew(Double.parseDouble(hopTimes[index]));
-            brewHop.setTimeUnitOfMeasure(hopTimeUnits[index]);
+                BrewHop brewHop = new BrewHop();
+                brewHop.setBrew(brew);
+                brewHop.setHop(hop);
+                brewHop.setAmount(Double.parseDouble(hopAmounts[index]));
+                brewHop.setAmountUnitOfMeasure(hopAmountUnits[index]);
+                brewHop.setMethod(hopMethods[index]);
+                brewHop.setTimeInBrew(Double.parseDouble(hopTimes[index]));
+                brewHop.setTimeUnitOfMeasure(hopTimeUnits[index]);
 
-            brew.addBrewHop(brewHop);
+                brew.addBrewHop(brewHop);
+            }
         }
     }
 }

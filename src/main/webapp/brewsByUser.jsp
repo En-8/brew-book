@@ -13,6 +13,11 @@
 <c:import url="./templates/navbar.jsp"/>
 <div class="multi-brew-container" id="your-brews-container">
     <h1>Your Brews</h1>
+    <c:if test="${brews.size() == 0}" >
+        <p class="nothing-here">
+            There's nothing here! <a href="${pageContext.request.contextPath}/createBrew">Create a new brew to get started.</a>
+        </p>
+    </c:if>
     <c:forEach items="${brews}" var="brew">
         <div class="brew-card">
             <h2 class="brew-card-name">${brew.brewName}</h2>

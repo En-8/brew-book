@@ -4,17 +4,52 @@ let fermentableCount = 1;
 let hopCount = 1;
 let miscCount = 1;
 
+// Option values for dropdowns
+let fermentableOptions;
+let hopOptions;
+let miscOptions;
+
 const init = () => {
+    initializeFormValidation();
+
     // Add event listeners to "Add *" and "Delete" buttons
     document.querySelector("#add-fermentable").addEventListener("click", addFermentable);
     document.querySelector("#add-hop").addEventListener("click", addHop);
     document.querySelector("#add-misc").addEventListener("click", addMisc);
-    // let removeFermentable = document.querySelector("#remove-fermentable").addEventListener("click", removeFermentable);
+
+    // Add event listeners to "Remove *" buttons
+    document.querySelector(".remove-fermentable").addEventListener('click', removeFermentable);
+    document.querySelector(".remove-hop").addEventListener('click', removeHop);
+    document.querySelector('.remove-misc').addEventListener('click', removeMisc);
+
+    // Grab the option values from the dropdowns, so JS has access to them
+    // even if that first value is removed prior to adding another value.
+    fermentableOptions = [...document.querySelector("#fermentable-select-0").children];
+    hopOptions = [...document.querySelector("#hop-select-0").children];
+    miscOptions = [...document.querySelector("#misc-select-0").children];
+}
+
+const initializeFormValidation = () => {
+    let form = document.querySelector(".needs-validation");
+    form.addEventListener('submit', event => {
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+        form.insertBefore(constructValidationMessageElement(), form.children[form.children.length - 1])
+    }, false);
+}
+
+const constructValidationMessageElement = () => {
+    let msg = document.createElement('p');
+    msg.classList.add("error-msg");
+    msg.innerText = "Oops! Some things need fixing before we can create this brew.";
+    return msg;
 }
 
 const addFermentable = () => {
-    // Get the dropdown options from the first fermentable
-    let fermentableOptions = [...document.querySelector("#fermentable-select-0").children]
+    // get the fermentables group of form groups
     let formGroup = document.querySelector("#form-fermentables");
 
     // Create the form pieces
@@ -26,18 +61,20 @@ const addFermentable = () => {
     selectGroup.className = "form-group col-6"
 
     let select = document.createElement("select");
-    select.className = "form-control"
-    select.name = 'fermentable'
-    select.id = `fermentable-select-${fermentableCount}`
+    select.required = true;
+    select.className = "form-control";
+    select.name = 'fermentable';
+    select.id = `fermentable-select-${fermentableCount}`;
 
     let amountGroup = document.createElement("div");
-    amountGroup.className = "form-group col-2"
+    amountGroup.className = "form-group col-2";
 
     let amountInput = document.createElement("input");
     amountInput.type = "text";
     amountInput.className = "form-control";
     amountInput.name = 'fermentable-amount';
     amountInput.id = `fermentable-amount-${fermentableCount}`;
+    amountInput.required = true;
 
     let unitsGroup = document.createElement("div");
     unitsGroup.className = "form-group col-2";
@@ -96,8 +133,6 @@ const addFermentable = () => {
 }
 
 const addHop = () => {
-    // Get the dropdown options from the first hop
-    let hopOptions = [...document.querySelector("#hop-select-0").children]
     let formGroup = document.querySelector("#form-hops");
 
     // Create the form pieces
@@ -109,18 +144,20 @@ const addHop = () => {
     selectGroup.className = "form-group col-5"
 
     let select = document.createElement("select");
-    select.className = "form-control"
-    select.name = 'hop'
-    select.id = `hop-select-${hopCount}`
+    select.className = "form-control";
+    select.name = 'hop';
+    select.id = `hop-select-${hopCount}`;
+    select.required = true;
 
     let amountGroup = document.createElement("div");
-    amountGroup.className = "form-group col-1"
+    amountGroup.className = "form-group col-1";
 
     let amountInput = document.createElement("input");
     amountInput.type = "text";
     amountInput.className = "form-control";
     amountInput.name = 'hop-amount';
     amountInput.id = `hop-amount-${hopCount}`;
+    amountInput.required = true;
 
     let unitsGroup = document.createElement("div");
     unitsGroup.className = "form-group col-1";
@@ -146,6 +183,7 @@ const addHop = () => {
     timeInput.className = "form-control";
     timeInput.name = 'hop-time';
     timeInput.id = `hop-time-${hopCount}`;
+    timeInput.required = true;
 
     let timeUnitsGroup = document.createElement("div");
     timeUnitsGroup.className = "form-group col-1";
@@ -237,8 +275,6 @@ const addHop = () => {
 }
 
 const addMisc = () => {
-    // Get the dropdown options from the first misc
-    let miscOptions = [...document.querySelector("#misc-select-0").children]
     let formGroup = document.querySelector("#form-misc");
 
     // Create the form pieces
@@ -247,27 +283,29 @@ const addMisc = () => {
     rowDiv.id = `misc-row-${miscCount}`;
 
     let selectGroup = document.createElement("div");
-    selectGroup.className = "form-group col-5"
+    selectGroup.className = "form-group col-5";
 
     let select = document.createElement("select");
-    select.className = "form-control"
-    select.name = 'misc'
-    select.id = `misc-select-${miscCount}`
+    select.className = "form-control";
+    select.name = 'misc';
+    select.id = `misc-select-${miscCount}`;
+    selec.required = true;
 
     let amountGroup = document.createElement("div");
-    amountGroup.className = "form-group col-1"
+    amountGroup.className = "form-group col-1";
 
     let amountInput = document.createElement("input");
     amountInput.type = "text";
     amountInput.className = "form-control";
     amountInput.name = 'misc-amount';
     amountInput.id = `misc-amount-${miscCount}`;
+    amountInput.required = true;
 
     let unitsGroup = document.createElement("div");
     unitsGroup.className = "form-group col-1";
 
     let unitsSelect = document.createElement("select");
-    unitsSelect.className = "form-control"
+    unitsSelect.className = "form-control";
     unitsSelect.name = 'misc-amount-units';
     unitsSelect.id = `misc-amount-units-${miscCount}`;
 
@@ -287,6 +325,7 @@ const addMisc = () => {
     timeInput.className = "form-control";
     timeInput.name = 'misc-time';
     timeInput.id = `misc-time-${miscCount}`;
+    timeInput.required = true;
 
     let timeUnitsGroup = document.createElement("div");
     timeUnitsGroup.className = "form-group col-1";
@@ -383,17 +422,17 @@ const addMisc = () => {
 }
 
 const removeFermentable = event => {
-    document.querySelector(`#fermentable-row-${event.target.value}`).remove();
+    event.target.parentElement.parentElement.remove();
     --fermentableCount;
 }
 
 const removeHop = event => {
-    document.querySelector(`#hop-row-${event.target.value}`).remove();
+    event.target.parentElement.parentElement.remove();
     --hopCount;
 }
 
 const removeMisc = event => {
-    document.querySelector(`#misc-row-${event.target.value}`).remove();
+    event.target.parentElement.parentElement.remove();
     --miscCount;
 }
 

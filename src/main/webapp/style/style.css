@@ -1,8 +1,15 @@
-/* Form Styles */
-form {
+/* Create brew Styles */
+.error-msg {
+    margin: 1em 0 1em 0;
+    color: red;
+    font-weight: 400;
+    font-size: 16pt;
+}
+
+#create-brew-container {
     width: 40%;
     min-width: 900px;
-    margin: 0 auto 0 auto;
+    margin: 1em auto 0 auto;
 }
 
 .multi-select {
@@ -33,7 +40,16 @@ form {
 
 .multi-brew-container h1 {
     font-weight: 600;
-    margin: 2em 0 2em 0;
+    margin: 1em 0 1em 0;
+}
+
+.nothing-here {
+    font-size: 20pt;
+    font-weight: 400;
+}
+
+.nothing-here > a {
+    color: dodgerblue;
 }
 
 .brew-card {
@@ -81,4 +97,20 @@ form {
 
 .brew-card-button {
     width: 100%;
+}
+
+/*
+
+Login form styles
+
+*/
+
+.login-container {
+    width: 400px;
+    margin: 1em auto 0 auto;
+}
+
+#login-form {
+    width: 400px;
+    min-width: 400px;
 }

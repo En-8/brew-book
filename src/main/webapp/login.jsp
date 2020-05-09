@@ -4,13 +4,30 @@
 <body>
 <c:import url="./templates/navbar.jsp" />
 
-<h1>Log In</h1>
-<form action="j_security_check" method="POST">
-    <label for="username">Username: </label>
-    <input type="text" name="j_username" id="username">
-    <label for="password">Password: </label>
-    <input type="password" name="j_password" id="password">
-    <input type="submit" value="Log In">
-</form>
-
+<div class="login-container">
+    <h1>Log In</h1>
+    <form id="login-form" action="j_security_check" method="POST" class="needs-validation" novalidate>
+        <div class="form-group">
+            <label for="username">Username: </label>
+            <input class="form-control" type="text" name="j_username" id="username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password: </label>
+            <input class="form-control" type="password" name="j_password" id="password" required>
+        </div>
+        <button class="btn btn-primary" type="submit" value="Log In" >Log In</button>
+    </form>
+</div>
+<script>
+    window.onload = () => {
+        let form = document.querySelector(".needs-validation")
+        form.addEventListener("submit", () => {
+            if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        }, false)
+    }
+</script>
 <c:import url="./templates/footer.jsp" />

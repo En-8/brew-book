@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.innate.Model.DeleteBrewRequest;
 import dev.innate.entity.Brew;
 import dev.innate.persistance.GenericDao;
-import jdk.security.jarsigner.JarSignerException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
