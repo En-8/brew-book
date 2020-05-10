@@ -18,7 +18,9 @@
                     <a class="dropdown-item" href="createBrew">Create a new brew</a>
                 </div>
             </li>
-
+            <li class="nav-item">
+                <a href="thirsty" class="nav-link">I'm thirsty</a>
+            </li>
             <c:choose>
                 <c:when test="${userId != null}">
                     <li class="nav-item">

@@ -8,9 +8,19 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpSession;
 
+/**
+ * This is a singleton class that manages how user data is stored in the Http session.
+ */
 public class SessionManager {
     private static Logger logger = LogManager.getLogger(SessionManager.class);
 
+    /**
+     * Adds the specified user to the Http session. If that user is already in the session, or if there is no
+     * user currently logged in, nothing is added to the session.
+     *
+     * @param username the username of the user being added to the session
+     * @param session the Https session the user is being added to.
+     */
     public static void addUserToSession(String username, HttpSession session) {
         String sessionUsername = (String) session.getAttribute("username");
         if (sessionUsername != null) {
@@ -26,6 +36,12 @@ public class SessionManager {
         }
     }
 
+    /**
+     * Fetches the user data for the user that is being added to the session.
+     *
+     * @param username
+     * @return an instance of User representing the current user.
+     */
     private static User fetchUserData(String username) {
         GenericDao userDao = new GenericDao(User.class);
         return (User) userDao.findByPropertyEqual("username", username).get(0);

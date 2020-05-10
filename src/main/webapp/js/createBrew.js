@@ -17,16 +17,16 @@ const init = () => {
     document.querySelector("#add-hop").addEventListener("click", addHop);
     document.querySelector("#add-misc").addEventListener("click", addMisc);
 
-    // Add event listeners to "Remove *" buttons
-    document.querySelector(".remove-fermentable").addEventListener('click', removeFermentable);
-    document.querySelector(".remove-hop").addEventListener('click', removeHop);
-    document.querySelector('.remove-misc').addEventListener('click', removeMisc);
-
     // Grab the option values from the dropdowns, so JS has access to them
     // even if that first value is removed prior to adding another value.
     fermentableOptions = [...document.querySelector("#fermentable-select-0").children];
     hopOptions = [...document.querySelector("#hop-select-0").children];
     miscOptions = [...document.querySelector("#misc-select-0").children];
+
+    // Add event listeners to "Remove *" buttons
+    document.querySelector(".remove-fermentable").addEventListener('click', removeFermentable);
+    document.querySelector(".remove-hop").addEventListener('click', removeHop);
+    document.querySelector('.remove-misc').addEventListener('click', removeMisc);
 }
 
 const initializeFormValidation = () => {

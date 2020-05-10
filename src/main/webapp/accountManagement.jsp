@@ -11,11 +11,13 @@
 </head>
 <body>
 <c:import url="./templates/navbar.jsp"/>
-
-<h1>Your account</h1>
-<p>Username: ${username}</p>
-<p>Email: ${email}</p>
-<p><a href="#">Reset my password</a></p>
-<button type="button" class="btn btn-outline-primary" id="editAccountButton">Edit account info</button>
-<div id="editAccountContainer"></div>
+<div id="account-page-container">
+<div id="account-container">
+    <h1>Your account</h1>
+    <p>Username: ${username}</p>
+    <p>Email: ${email}</p>
+    <button type="button" class="btn btn-outline-primary" id="editAccountButton">Edit account info</button>
+    <div id="editAccountContainer"></div>
+</div>
+</div>
 <c:import url="./templates/footer.jsp"/>

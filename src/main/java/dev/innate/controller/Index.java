@@ -12,10 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Home page servlet
+ */
 @WebServlet(urlPatterns = {"/index"})
 public class Index extends HttpServlet {
-    private Logger logger = LogManager.getLogger(this.getClass());
-
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");

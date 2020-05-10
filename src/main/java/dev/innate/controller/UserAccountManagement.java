@@ -17,6 +17,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Servlet that handles requests for account management
+ */
 @WebServlet(urlPatterns = {"/manageAccount"})
 public class UserAccountManagement extends HttpServlet {
     Logger logger = LogManager.getLogger();

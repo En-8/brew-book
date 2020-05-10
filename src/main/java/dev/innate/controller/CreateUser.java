@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Servlet that handles requests to create a new user.
+ */
 @WebServlet(urlPatterns = {"/createUser"})
 public class CreateUser extends HttpServlet {
     @Override

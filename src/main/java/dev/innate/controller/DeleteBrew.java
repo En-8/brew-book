@@ -1,7 +1,7 @@
 package dev.innate.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.innate.Model.DeleteBrewRequest;
+import dev.innate.model.DeleteBrewRequest;
 import dev.innate.entity.Brew;
 import dev.innate.persistance.GenericDao;
 import org.apache.logging.log4j.LogManager;
@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+/**
+ * Servlet that exclusively handles DELETE requests to delete brews.
+ */
 @WebServlet(urlPatterns = {"/deleteBrew"})
 public class DeleteBrew extends HttpServlet {
     private static Logger logger = LogManager.getLogger(DeleteBrew.class);

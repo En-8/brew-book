@@ -40,21 +40,6 @@
                 </select>
             </div>
         </div>
-        <div class="multi-select">
-            <div class="form-group">
-                <label for="yeast-select" class="main-label">Yeast</label>
-                <select class="form-control" name="yeast" id="yeast-select">
-                    <option value="0">-- Select a yeast strain --</option>
-                    <c:forEach var="yeast" items="${yeasts}">
-                        <option value="${yeast.id}">${yeast.name}</option>
-                    </c:forEach>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="yeast-pitch-notes">Pitch Notes</label>
-                <textarea class="form-control" name="yeast-pitch-notes" id="yeast-pitch-notes" placeholder="Add some notes about your yeast pitch conditions"></textarea>
-            </div>
-        </div>
         <div class="multi-select" id="form-fermentables">
             <h2 class="row main-label">Fermentables</h2>
             <div class="form-row" id="fermentable-row-0">
@@ -194,6 +179,21 @@
                 <div class="col-5">
                     <button class="form-control btn btn-secondary" id="add-misc" type="button" value="add-misc">Add Other Ingredient</button>
                 </div>
+            </div>
+        </div>
+        <div class="multi-select">
+            <div class="form-group">
+                <label for="yeast-select" class="main-label">Yeast</label>
+                <select class="form-control" name="yeast" id="yeast-select">
+                    <option value="0">-- Select a yeast strain --</option>
+                    <c:forEach var="yeast" items="${yeasts}">
+                        <option value="${yeast.id}">${yeast.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="yeast-pitch-notes">Pitch Notes</label>
+                <textarea class="form-control" name="yeast-pitch-notes" id="yeast-pitch-notes" placeholder="Add some notes about your yeast pitch conditions"></textarea>
             </div>
         </div>
         <div class="multi-select">

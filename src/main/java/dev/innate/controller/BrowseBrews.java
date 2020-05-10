@@ -18,6 +18,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Servlet that handles requests for a user browsing their brews.
+ */
 @WebServlet(urlPatterns = {"/yourBrews"})
 public class BrowseBrews extends HttpServlet {
     Logger logger = LogManager.getLogger();

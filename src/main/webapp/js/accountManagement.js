@@ -5,44 +5,52 @@ function init() {
 }
 
 function toggleEditAccountForm() {
-    formContainer = document.querySelector("#editAccountContainer");
+    let formContainer = document.querySelector("#editAccountContainer");
     if (formOpen) {
         let children = [...formContainer.children];
         children.forEach(child => formContainer.removeChild(child));
         formOpen = false;
     } else {
         // Generate and configure form
-        form = document.createElement("form");
+        let form = document.createElement("form");
         form.action = "manageAccount"
         form.method = "post"
 
         // Generate username input
-        usernameLabel = document.createElement("label");
+        let usernameGroup = document.createElement('div');
+        usernameGroup.classList.add('form-group');
+        let usernameLabel = document.createElement("label");
         usernameLabel.innerText = "New Username:";
-        usernameInput = document.createElement("input");
+        let usernameInput = document.createElement("input");
         usernameInput.placeholder = "Enter new username"
         usernameInput.type = "text";
-        usernameInput.name = "username"
+        usernameInput.name = "username";
+        usernameInput.classList.add("form-control");
+        usernameGroup.appendChild(usernameLabel);
+        usernameGroup.appendChild(usernameInput);
 
         // Generate email input
-        emailLabel = document.createElement("label");
+        let emailGroup = document.createElement('div');
+        emailGroup.classList.add('form-group');
+        let emailLabel = document.createElement("label");
         emailLabel.innerText = "New email:";
-        emailInput = document.createElement("input");
+        let emailInput = document.createElement("input");
         emailInput.placeholder = "Enter new email";
         emailInput.type = "email";
-        emailInput.name = "email"
+        emailInput.name = "email";
+        emailInput.classList.add("form-control");
+        emailGroup.appendChild(emailLabel);
+        emailGroup.appendChild(emailInput);
 
         // Generate form submit button
-        submit = document.createElement("input");
+        let submit = document.createElement("input");
         submit.type = "submit";
         submit.value = "Update account";
         submit.className = "btn btn-primary";
 
         // Put it all together
-        form.appendChild(usernameLabel);
-        form.appendChild(usernameInput);
-        form.appendChild(emailLabel);
-        form.appendChild(emailInput);
+        form.appendChild(usernameGroup);
+        form.appendChild(emailGroup);
         form.appendChild(submit);
         formContainer.appendChild(form);
 

@@ -7,6 +7,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * This class represents a style that a particular brew could be e.g. Pilsner
+ */
 @Entity(name="Style")
 @Table(name="style")
 public class Style {
@@ -16,36 +19,77 @@ public class Style {
     private int id;
     @Column(name="style_name")
     private String name;
-    @OneToMany(mappedBy = "style", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    /**
+     * The brews that belong to this style.
+     */
+    @OneToMany(mappedBy = "style", fetch = FetchType.LAZY)
     Set<Brew> brews = new HashSet<>();
 
+    /**
+     * Instantiates a new Style.
+     */
     public Style() {}
 
+    /**
+     * Instantiates a new Style.
+     *
+     * @param name the name
+     */
     public Style(String name) {
         this.name = name;
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Add brew.
+     *
+     * @param brew the brew
+     */
     public void addBrew(Brew brew) {
         brews.add(brew);
         brew.setStyle(this);
     }
 
+    /**
+     * Remove brew.
+     *
+     * @param brew the brew
+     */
     public void removeBrew(Brew brew) {
         brews.remove(brew);
         brew.setStyle(null);

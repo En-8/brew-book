@@ -17,7 +17,7 @@ public class Yeast {
     private String brand;
     private String name;
 
-    @OneToMany(mappedBy = "yeast", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "yeast", fetch = FetchType.LAZY)
     Set<Brew> brews = new HashSet<>();
 
     public Yeast() {

@@ -10,6 +10,7 @@
 </head>
 <body>
 <c:import url="./templates/navbar.jsp"/>
+<div id="brew-details">
 <h1 id="brew-details-header">Brew Details</h1>
 <div class="brew-container">
     <h1>${brew.brewName}</h1>
@@ -88,6 +89,6 @@
         </div>
     </c:if>
 </div>
-
+</div>
 </body>
 <c:import url="./templates/footer.jsp"/>

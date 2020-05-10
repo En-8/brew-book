@@ -7,15 +7,8 @@ body {
 }
 
 .btn-primary {
-    background-color: #faa72d;
-    border-color: #faa72d;!important;
     font-size: 16pt;
     font-weight: 200;
-}
-
-.btn-primary:hover {
-    background-color: #d08400;!important;
-    border-color: #d08400;!important;
 }
 
 .navbar-dark {
@@ -135,6 +128,10 @@ footer > p {
 
 
 /* Brew detail style */
+#brew-details {
+    flex-grow: 1;
+}
+
 .brew-container {
     margin: 1rem auto 1rem auto;
     padding: 1rem;
@@ -214,6 +211,7 @@ footer > p {
     min-width: 500px;
     max-width: 850px;
     margin: 0 auto 0 auto;
+    flex-grow: 1;
 }
 
 .multi-brew-container h1 {
@@ -285,10 +283,48 @@ Login form styles
 
 .login-container {
     width: 400px;
+    flex-grow: 1;
     margin: 1em auto 0 auto;
 }
 
 #login-form {
     width: 400px;
     min-width: 400px;
+}
+
+/*
+
+Login form styles
+
+*/
+
+#search-container {
+    width: 400px;
+    flex-grow: 1;
+    margin: 1em auto 0 auto;
+}
+
+#search-form {
+    width: 400px;
+    min-width: 400px;
+}
+
+/*
+Account styles
+ */
+#account-page-container {
+    flex-grow: 1;
+}
+
+#account-container {
+    width: 33%;
+    max-width: 500px;
+    border-radius: 7px;
+    box-shadow: 1px 1px 7px gray;
+    margin: 2rem auto 0 auto;
+    padding: 1rem 2rem 2rem 2rem;
+}
+
+#editAccountContainer {
+    margin-top: 2rem;
 }

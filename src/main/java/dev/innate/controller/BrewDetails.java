@@ -12,8 +12,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Servlet that handles requests for details of an individual brew.
+ */
 @WebServlet(urlPatterns = {"/brewDetails"})
 public class BrewDetails extends HttpServlet {
+    /**
+     * Handles GET requests for an individual brew.
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("brewDetails.jsp");

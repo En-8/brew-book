@@ -10,14 +10,29 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
+/**
+ * This class is a Generic Dao that can access entities from the database of any type.
+ *
+ * @param <T> the type parameter
+ */
 public class GenericDao<T> {
     private Class<T> type;
     private final Logger logger = LogManager.getLogger(this.getClass());
 
+    /**
+     * Instantiates a new Generic dao.
+     *
+     * @param type the type
+     */
     public GenericDao(Class<T> type) {
         this.type = type;
     }
 
+    /**
+     * Gets all.
+     *
+     * @return the all
+     */
     public List<T> getAll() {
         Session session = getSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
@@ -29,6 +44,13 @@ public class GenericDao<T> {
         return entities;
     }
 
+    /**
+     * Gets by id.
+     *
+     * @param <T> the type parameter
+     * @param id  the id
+     * @return the by id
+     */
     public <T>T getById(int id) {
         Session session = getSession();
         T entity = (T)session.get(type, id);
@@ -37,6 +59,13 @@ public class GenericDao<T> {
         return entity;
     }
 
+    /**
+     * Finds a list of entities that have the specified property equal to the specified value
+     *
+     * @param propertyName the property name
+     * @param value        the value
+     * @return the list
+     */
     public List<T> findByPropertyEqual(String propertyName, Object value) {
         Session session = getSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
@@ -47,6 +76,11 @@ public class GenericDao<T> {
         return session.createQuery(query).getResultList();
     }
 
+    /**
+     * Updates an entity in the database, or creates a new one if the entity didn't already exist.
+     *
+     * @param entity the entity
+     */
     public void update(T entity) {
         Session session = getSession();
         Transaction transaction = session.beginTransaction();
@@ -55,6 +89,11 @@ public class GenericDao<T> {
         session.close();
     }
 
+    /**
+     * Deletes a record from the database.
+     *
+     * @param entity the entity
+     */
     public void delete(T entity) {
         Session session = getSession();
         Transaction transaction = session.beginTransaction();
@@ -63,6 +102,12 @@ public class GenericDao<T> {
         session.close();
     }
 
+    /**
+     * Creates a new record in the database.
+     *
+     * @param entity the entity
+     * @return the int
+     */
     public int create(T entity) {
         int id = 0;
         Session session = getSession();
