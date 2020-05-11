@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * The type Brew form util.
+ * This class grabs from and populates data from the HttpRequest related to the CreateBrew form.
  */
 public class BrewFormUtil {
     /**

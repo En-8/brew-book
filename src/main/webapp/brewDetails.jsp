@@ -15,18 +15,18 @@
 <div class="brew-container">
     <h1>${brew.brewName}</h1>
     <p class="field-name" id="style-name">${brew.style.name}</p>
-    <c:if test="${brew.description}">
+    <c:if test="${brew.description != null}">
         <p class="notes" id="brew-description">
                 ${brew.description}
         </p>
     </c:if>
-    <c:if test="${brew.yeast}">
+    <c:if test="${brew.yeast != null}">
         <div class="ingredient-container">
             <h2>Yeast</h2>
             <p class="field-name" id="yeast-name">
                 ${brew.yeast.name}
             </p>
-            <c:if test="${brew.pitchNotes}">
+            <c:if test="${brew.pitchNotes != null}">
                 <p class="notes" id="pitch-notes">
                     <span class="notes-title">Pitch Notes:</span> ${brew.pitchNotes}
                 </p>

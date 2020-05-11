@@ -12,10 +12,19 @@ import javax.ws.rs.core.MediaType;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This class consumes the OpenBreweryDb API to get brewery information
+ */
 public class OpenBreweryClient {
     private final String BASE_URL = "https://api.openbrewerydb.org/breweries";
     private Logger logger = LogManager.getLogger(OpenBreweryClient.class);
 
+    /**
+     * Get brewery information from OpenBreweryDb for the specified city and state.
+     * @param city the city
+     * @param state the state
+     * @return a list of breweries in the specified city, state.
+     */
     public List<Brewery> getBreweriesByCityState(String city, String state) {
         String parameters = "?by_state=" + state + "&by_city=" + city;
         Client client = ClientBuilder.newClient();

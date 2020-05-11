@@ -1,0 +1,6 @@
+dev.innate.client
+dev.innate.controller
+dev.innate.entity
+dev.innate.model
+dev.innate.persistance
+dev.innate.util

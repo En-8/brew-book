@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"dev.innate.client"},{"l":"dev.innate.controller"},{"l":"dev.innate.entity"},{"l":"dev.innate.model"},{"l":"dev.innate.persistance"},{"l":"dev.innate.util"}]
