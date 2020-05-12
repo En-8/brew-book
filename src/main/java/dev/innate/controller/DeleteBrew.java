@@ -1,6 +1,7 @@
 package dev.innate.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.innate.entity.User;
 import dev.innate.model.DeleteBrewRequest;
 import dev.innate.entity.Brew;
 import dev.innate.persistance.GenericDao;
@@ -29,6 +30,8 @@ public class DeleteBrew extends HttpServlet {
         logger.info(String.format(request.getSession().getId() + " Attempting to delete brew (id = %d)", brewId));
         GenericDao brewDao = new GenericDao(Brew.class);
         brewDao.delete(brewDao.getById(brewId));
+        GenericDao userDao = new GenericDao(User.class);
+        request.setAttribute("brews",  brewDao.findByPropertyEqual("user", userDao.getById((Integer)(request.getSession().getAttribute("userId")))));
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("brewsByUser.jsp");
         dispatcher.forward(request, response);
