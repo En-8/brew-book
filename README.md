@@ -32,3 +32,6 @@ web-based application for creating and sharing an unlimited quantity of beer rec
   * JUnit
 * IDE
   * IntelliJ IDEA
+  
+## Video Demo
+https://youtu.be/k2XRe04ZspQ
