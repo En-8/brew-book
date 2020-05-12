@@ -7,6 +7,7 @@ import dev.innate.persistance.GenericDao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,29 +17,20 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 /**
- * Servlet that exclusively handles DELETE requests to delete brews.
+ * Servlet that exclusively handles requests to delete brews.
  */
 @WebServlet(urlPatterns = {"/deleteBrew"})
 public class DeleteBrew extends HttpServlet {
     private static Logger logger = LogManager.getLogger(DeleteBrew.class);
 
     @Override
-    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        StringBuffer body = new StringBuffer();
-        String line = null;
-        try {
-            BufferedReader reader = request.getReader();
-            while ((line = reader.readLine()) != null) {
-                body.append(line);
-            }
-        } catch (Exception exception) {
-            logger.error("Could not extract body from request object");
-        }
-
-        DeleteBrewRequest deleteBrewRequest = mapper.readValue(body.toString(), DeleteBrewRequest.class);
-        logger.info(String.format("Attempting to delete brew (id = %d)", deleteBrewRequest.getId()));
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int brewId = Integer.parseInt(request.getParameter("id"));
+        logger.info(String.format(request.getSession().getId() + " Attempting to delete brew (id = %d)", brewId));
         GenericDao brewDao = new GenericDao(Brew.class);
-        brewDao.delete(brewDao.getById(deleteBrewRequest.getId()));
+        brewDao.delete(brewDao.getById(brewId));
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("brewsByUser.jsp");
+        dispatcher.forward(request, response);
     }
 }

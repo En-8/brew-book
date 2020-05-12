@@ -21,8 +21,8 @@ public class CreateUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("userId") != null) {
-            // TODO send the user to the account management page
             // Getting here will only be possible via direct navigation.
+            response.sendRedirect("manageAccount");
         }
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("createUser.jsp");
@@ -30,28 +30,39 @@ public class CreateUser extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User newUser = new User();
         newUser.setUsername(request.getParameter("username"));
         newUser.setEmail(request.getParameter("email"));
         newUser.setPassword(request.getParameter("password"));
 
-        GenericDao dao = new GenericDao(User.class);
-        int userId = dao.create(newUser);
-        newUser.setId(userId);
+        if (checkIfUsernameExists(newUser.getUsername())) {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("createUser.jsp");
+            request.setAttribute("error", "A user with that username already exists");
+            dispatcher.forward(request, response);
+        } else {
+            GenericDao dao = new GenericDao(User.class);
+            int userId = dao.create(newUser);
+            newUser.setId(userId);
 
-        GenericDao roleDao = new GenericDao(Role.class);
-        Role role = new Role();
-        role.setUser(newUser);
-        role.setUsername(newUser.getUsername());
-        role.setRoleName("registered_user");
-        roleDao.create(role);
+            GenericDao roleDao = new GenericDao(Role.class);
+            Role role = new Role();
+            role.setUser(newUser);
+            role.setUsername(newUser.getUsername());
+            role.setRoleName("registered_user");
+            roleDao.create(role);
 
-        HttpSession session = request.getSession();
-        session.setAttribute("username", newUser.getUsername());
-        session.setAttribute("userId", userId);
-        session.setAttribute("email", newUser.getEmail());
+            HttpSession session = request.getSession();
+            session.setAttribute("username", newUser.getUsername());
+            session.setAttribute("userId", userId);
+            session.setAttribute("email", newUser.getEmail());
 
-        response.sendRedirect("login");
+            response.sendRedirect("login");
+        }
+    }
+
+    private boolean checkIfUsernameExists(String username) {
+        GenericDao userDao = new GenericDao(User.class);
+        return userDao.findByPropertyEqual("username", username).size() > 0;
     }
 }

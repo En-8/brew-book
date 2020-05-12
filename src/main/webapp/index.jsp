@@ -18,7 +18,7 @@
             <p>
                 ...A simple way to manage your homebrew beer recipes
             </p>
-            <button id="banner-sign-up" class="btn btn-primary">Sign up to start brewing</button>
+            <a href="${pageContext.request.contextPath}/createUser"><button id="banner-sign-up" class="btn btn-primary">Sign up to start brewing</button></a>
         </div>
     </div>
 </div>

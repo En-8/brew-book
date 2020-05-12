@@ -35,9 +35,10 @@ const initializeFormValidation = () => {
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
+            form.insertBefore(constructValidationMessageElement(), form.children[form.children.length - 1])
         }
         form.classList.add('was-validated');
-        form.insertBefore(constructValidationMessageElement(), form.children[form.children.length - 1])
+
     }, false);
 }
 
@@ -289,7 +290,7 @@ const addMisc = () => {
     select.className = "form-control";
     select.name = 'misc';
     select.id = `misc-select-${miscCount}`;
-    selec.required = true;
+    select.required = true;
 
     let amountGroup = document.createElement("div");
     amountGroup.className = "form-group col-1";

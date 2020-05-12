@@ -26,13 +26,13 @@ public class SessionManager {
         if (sessionUsername != null) {
             logger.log(Level.INFO, "User " + username + " already in session");
         } else if(username == null) {
-            logger.log(Level.INFO, "No user to add to session; Proceeding as unregistered");
+            logger.log(Level.INFO, session.getId() + " No user to add to session; Proceeding as unregistered");
         } else {
             User currentUser = fetchUserData(username);
             session.setAttribute("username", currentUser.getUsername());
             session.setAttribute("userId", currentUser.getId());
             session.setAttribute("email", currentUser.getEmail());
-            logger.log(Level.INFO, "User " + currentUser.getUsername() + " added to session");
+            logger.log(Level.INFO, session.getId() + " User " + currentUser.getUsername() + " added to session");
         }
     }
 

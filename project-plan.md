@@ -41,46 +41,46 @@
 - [x] Add bootstrap styling to jsp's
 
 # Week 8
-- [ ] Integration with chosen API
-- [ ] Create jsp for displaying a user's brews
-- [ ] Create jsp for user account management / information
+- [x] Integration with chosen API
+- [x] Create jsp for displaying a user's brews
+- [x] Create jsp for user account management / information
 - [ ] Start creating a plan for sharing recipes between users
-- [ ] Create landing page
+- [x] Create landing page
 
 
 # Week 9
-- [ ] Take some time to brush up styling of existing jsp's
-- [ ] Create brew creation jsp
-- [ ] Implement brew creation feature
+- [x] Take some time to brush up styling of existing jsp's
+- [x] Create brew creation jsp
+- [x] Implement brew creation feature
 
 # Week 10
-- [ ] Implement user account management feature
-- [ ] Implement user view brews feature
+- [x] Implement user account management feature
+- [x] Implement user view brews feature
 - [ ] *** placeholder for sharing feature details ***
 
 # Week 11 - Team project work week
-- [ ] Update time log
+- [x] Update time log
 
 
 # Week 12 - Team project due
-- [ ] Review indie project details and create TODOs
+- [x] Review indie project details and create TODOs
 
 
 # Week 13
-- [ ] Complete TODOs identified in week 12
-- [ ] Final preparations for week 13 peer review
-- [ ] Review rubric to ensure on-target
+- [x] Complete TODOs identified in week 12
+- [x] Final preparations for week 13 peer review
+- [x] Review rubric to ensure on-target
 - [ ] [STRETCH] Implement activity feed feature, incorporating sharing permissions
 
 # Week 14
-- [ ] Create final presentation
+- [x] Create final presentation
 
 
 # Week 15
 - [ ] Give final presentation
-- [ ] Create video
-- [ ] Finalize documentation
+- [x] Create video
+- [x] Finalize documentation
 
 
 # Week 16
-- [ ] Final touches and quality check before code-complete
+- [x] Final touches and quality check before code-complete

@@ -11,22 +11,38 @@
 </head>
 <body>
 <c:import url="./templates/navbar.jsp"/>
+<div class="login-container">
 <h1>Sign up to get started!</h1>
-<form action="createUser" method="post">
+    <c:if test="${error.length() > 0}">
+        <p class="error-msg">${error}</p>
+    </c:if>
+<form action="createUser" method="post" class="login-form needs-validation" novalidate>
     <div class="form-group">
         <label for="username">Desired Username: </label>
-        <input type="text" name="username" id="username" class="form-control">
+        <input type="text" name="username" id="username" class="form-control" required>
     </div>
     <div class="form-group">
         <label for="email">Email: </label>
-        <input type="email" name="email" id="email" class="form-control">
+        <input type="email" name="email" id="email" class="form-control" required>
     </div>
     <div class="form-group">
         <label for="password">Password: </label>
-        <input type="password" name="password" id="password" class="form-control">
+        <input type="password" name="password" id="password" class="form-control" required>
     </div>
 
     <input type="submit" name="submit" value="Sign me up!" class="btn btn-primary">
 </form>
-
+</div>
+<script>
+    window.onload = () => {
+        let form = document.querySelector(".needs-validation")
+        form.addEventListener("submit", () => {
+            if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        }, false)
+    }
+</script>
 <c:import url="./templates/footer.jsp"/>
